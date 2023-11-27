@@ -24,7 +24,7 @@ class Escola(models.Model):
 
 class Telefone(models.Model):
     numero = models.CharField(max_length=20)
-    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, null=True, blank=True)
+    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, null=True, blank=True, related_name='telefones')
 
     def __str__(self):
         return self.numero
@@ -32,7 +32,7 @@ class Telefone(models.Model):
 
 class Email(models.Model):
     endereco = models.EmailField()
-    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, null=True, blank=True)
+    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, null=True, blank=True, related_name='emails')
 
     def __str__(self):
         return self.endereco

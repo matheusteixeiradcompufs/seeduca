@@ -1,3 +1,13 @@
-from django.shortcuts import render
+from rest_framework import viewsets, permissions
 
-# Create your views here.
+from escolas.models import Escola
+from escolas.permissions import EscolaPermission
+from escolas.serializer import EscolaSerializer
+
+
+class EscolaViewSet(viewsets.ModelViewSet):
+    queryset = Escola.objects.all()
+    serializer_class = EscolaSerializer
+    permission_classes = [
+        EscolaPermission,
+    ]
