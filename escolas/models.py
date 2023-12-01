@@ -10,7 +10,7 @@ class Escola(models.Model):
     descricao = models.TextField(blank=True, null=True)
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
-    imagem = models.ImageField(upload_to=f'escola_images/', blank=True, null=True, default='')
+    imagem = models.ImageField(upload_to='escola_images/', blank=True, null=True, default='')
 
     def __str__(self):
         return self.nome
@@ -24,7 +24,7 @@ class Escola(models.Model):
 
 class Telefone(models.Model):
     numero = models.CharField(max_length=20)
-    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, null=True, blank=True, related_name='telefones')
+    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, null=True, blank=True, related_name='escola_telefones')
 
     def __str__(self):
         return self.numero
@@ -32,7 +32,7 @@ class Telefone(models.Model):
 
 class Email(models.Model):
     endereco = models.EmailField()
-    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, null=True, blank=True, related_name='emails')
+    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, null=True, blank=True, related_name='escola_emails')
 
     def __str__(self):
         return self.endereco

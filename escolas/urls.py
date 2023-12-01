@@ -9,7 +9,7 @@ escola_api_v1_router = SimpleRouter()
 escola_api_v1_router.register(
     'api/v1',
     views.EscolaViewSet,
-    basename='escolas-api',
+    basename='escola-api',
 )
 
 urlpatterns = [

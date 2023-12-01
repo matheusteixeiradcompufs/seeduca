@@ -2,7 +2,7 @@ from rest_framework import viewsets, permissions
 
 from escolas.models import Escola
 from escolas.permissions import EscolaPermission
-from escolas.serializer import EscolaSerializer
+from escolas.serializers import EscolaSerializer
 
 
 class EscolaViewSet(viewsets.ModelViewSet):
