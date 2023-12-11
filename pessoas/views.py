@@ -8,17 +8,17 @@ from pessoas.serializers import AlunoSerializer, FuncionarioSerializer
 class AlunoViewSet(viewsets.ModelViewSet):
     queryset = Aluno.objects.all()
     serializer_class = AlunoSerializer
-    # permission_classes = [
-    #     AlunoPermission,
-    # ]
+    permission_classes = [
+        AlunoPermission,
+    ]
 
 
 class FuncionarioViewSet(viewsets.ModelViewSet):
     queryset = Funcionario.objects.all()
     serializer_class = FuncionarioSerializer
-    # permission_classes = [
-    #     FuncionarioPermission,
-    # ]
+    permission_classes = [
+        FuncionarioPermission,
+    ]
 
     def get_queryset(self):
         user = self.request.user
