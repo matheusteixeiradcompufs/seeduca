@@ -19,9 +19,11 @@ class PCDInline(admin.TabularInline):
 
 @admin.register(Aluno)
 class AlunoAdmin(admin.ModelAdmin):
+    list_display = ('id', '__str__', )
     inlines = [TelefoneInline, EmailInline, PCDInline]
 
 
 @admin.register(Funcionario)
 class FuncionarioAdmin(admin.ModelAdmin):
+    list_display = ('id', '__str__', )
     inlines = [TelefoneInline, EmailInline]

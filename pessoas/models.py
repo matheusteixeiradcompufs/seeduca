@@ -9,7 +9,7 @@ class Pessoa(models.Model):
     cpf = models.CharField(max_length=11, unique=True)
     data_nascimento = models.DateField(null=True, blank=True)
     endereco = models.CharField(max_length=255, null=True, blank=True)
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE, related_name='usuario_pessoa')
 
     def __str__(self):
         return str(self.usuario)
