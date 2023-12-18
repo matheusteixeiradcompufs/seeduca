@@ -73,8 +73,6 @@ def criar_usuario(classe, classe_data, usuario_data):
 
         usuario_classe = classe.objects.create(usuario=usuario, **classe_data)
         return usuario_classe
-    else:
-        raise serializers.ValidationError(usuario_serializer.errors)
 
 
 def atualizar_usuario(instance, validated_data, usuario_data):
