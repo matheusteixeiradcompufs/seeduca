@@ -103,7 +103,7 @@ class ItemCardapioMerenda(models.Model):
 
     class Meta:
         verbose_name = 'ítem do cardápio'
-        verbose_name_plural = 'ítens do cardápioy'
+        verbose_name_plural = 'ítens do cardápio'
 
 
 class CardapioMerenda(models.Model):
