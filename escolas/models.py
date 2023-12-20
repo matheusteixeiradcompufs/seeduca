@@ -57,13 +57,16 @@ class EmailEscola(Email):
 
 
 class Disciplina(models.Model):
-    nome = models.CharField(max_length=100)
+    nome = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.nome
 
 
 class Sala(models.Model):
-    numero = models.IntegerField()
+    numero = models.IntegerField(unique=True)
     quantidade_alunos = models.IntegerField(null=True, blank=True)
-    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, null=True, blank=True, related_name='escola_salas'),
+    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='escola_salas')
 
     def __str__(self):
         return '{:03}'.format(self.numero)
@@ -71,6 +74,9 @@ class Sala(models.Model):
 
 class AgendaEscolar(models.Model):
     nome = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nome
 
     class Meta:
         verbose_name_plural = 'agendas escolares'
@@ -81,6 +87,9 @@ class DiaAgenda(models.Model):
     disciplina = models.ManyToManyField(Disciplina, blank=True, related_name='disciplinas_dias')
     agenda = models.ForeignKey(AgendaEscolar, blank=True, null=True, on_delete=models.CASCADE, related_name='agenda_dias')
 
+    def __str__(self):
+        return self.data.strftime('%d/%m/%Y')
+
 
 class Aviso(models.Model):
     titulo = models.CharField(max_length=100)
@@ -88,18 +97,28 @@ class Aviso(models.Model):
     publicado_em = models.DateTimeField(auto_now_add=True)
     diaAgenda = models.ForeignKey(DiaAgenda, verbose_name='dia da agenda', blank=True, null=True, on_delete=models.CASCADE, related_name='dia_avisos')
 
+    def __str__(self):
+        return self.titulo
+
 
 class Tarefa(models.Model):
+    nome = models.CharField(max_length=100)
     descricao = models.TextField()
     tipo = models.BooleanField(default=False)
     cadastrada_em = models.DateTimeField(auto_now_add=True)
     entrega = models.DateTimeField(blank=True, null=True)
     diaAgenda = models.ForeignKey(DiaAgenda, verbose_name='dia da agenda', blank=True, null=True, on_delete=models.CASCADE, related_name='dia_tarefas')
 
+    def __str__(self):
+        return self.nome
+
 
 class ItemCardapioMerenda(models.Model):
     nome = models.CharField(max_length=100)
     descricao = models.TextField()
+
+    def __str__(self):
+        return self.nome
 
     class Meta:
         verbose_name = 'ítem do cardápio'
@@ -109,6 +128,9 @@ class ItemCardapioMerenda(models.Model):
 class CardapioMerenda(models.Model):
     item = models.ManyToManyField(ItemCardapioMerenda, blank=True, related_name='cardapios_itens')
     diaAgenda = models.ForeignKey(DiaAgenda, verbose_name='dia da agenda', blank=True, null=True, on_delete=models.CASCADE, related_name='dia_cardapios')
+
+    def __str__(self):
+        return 'Cardápio ' + str(self.diaAgenda)
 
     class Meta:
         verbose_name = 'cardápio da merenda'
@@ -123,8 +145,8 @@ class Turma(models.Model):
     agenda = models.OneToOneField(AgendaEscolar, blank=True, null=True, on_delete=models.CASCADE, related_name='agenda_turma')
     disciplina = models.ManyToManyField(Disciplina, blank=True, related_name='disciplinas_turmas')
 
-    class Meta:
-        unique_together = ['nome', 'ano', 'turno']
-
     def __str__(self):
         return self.nome
+
+    class Meta:
+        unique_together = ['nome', 'ano', 'turno']
