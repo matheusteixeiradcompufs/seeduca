@@ -1,4 +1,4 @@
-from pessoas.models import Telefone, Email, EhPCD, Responsavel
+from pessoas.models import TelefonePessoa, EmailPessoa, EhPCD, Responsavel
 from pessoas.tests.test_base_pessoas import PessoasTestBase
 
 
@@ -8,11 +8,11 @@ class PessoasModelsTestCase(PessoasTestBase):
         self.assertEqual(str(pessoa), str(pessoa.usuario))
 
     def test_telefone_model(self):
-        telefone = Telefone.objects.create(numero='123456789', pessoa=self.aluno)
+        telefone = TelefonePessoa.objects.create(numero='123456789', pessoa=self.aluno)
         self.assertEqual(str(telefone), '123456789')
 
     def test_email_model(self):
-        email = Email.objects.create(endereco='test@example.com', pessoa=self.aluno)
+        email = EmailPessoa.objects.create(endereco='test@example.com', pessoa=self.aluno)
         self.assertEqual(str(email), 'test@example.com')
 
     def test_aluno_model(self):

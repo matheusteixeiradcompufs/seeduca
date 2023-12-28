@@ -2,6 +2,13 @@ from django.db import models
 from django.utils import timezone
 
 
+class YearField(models.IntegerField):
+    def __init__(self, *args, **kwargs):
+        kwargs['validators'] = []
+        kwargs['choices'] = [(i, i) for i in range(1900, 2101)]
+        super().__init__(*args, **kwargs)
+
+
 class Escola(models.Model):
     cnpj = models.CharField(max_length=14, unique=True)
     nome = models.CharField(max_length=100)
@@ -139,7 +146,7 @@ class CardapioMerenda(models.Model):
 
 class Turma(models.Model):
     nome = models.CharField(max_length=100)
-    ano = models.CharField(max_length=4)
+    ano = YearField()
     turno = models.CharField(max_length=10)
     sala = models.ForeignKey(Sala, null=True, blank=True, on_delete=models.CASCADE, related_name='sala_turmas')
     agenda = models.OneToOneField(AgendaEscolar, blank=True, null=True, on_delete=models.CASCADE, related_name='agenda_turma')

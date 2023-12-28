@@ -6,6 +6,8 @@ from pessoas.tests.test_base_pessoas import PessoasTestBase
 
 class PessoasAPITest(PessoasTestBase):
     def test_list_aluno(self):
+        self.client.credentials(
+            HTTP_AUTHORIZATION=f'Bearer {self.get_auth_data(username="adminuser")["jwt_access_token"]}')
         url = reverse('pessoas:aluno-api-list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -18,18 +20,7 @@ class PessoasAPITest(PessoasTestBase):
 
     def test_create_aluno(self):
         url = reverse('pessoas:aluno-api-list')
-        # data = {
-        #     "matricula": "0000000099",
-        #     "cpf": "88888888993",
-        #     "escola": 1,
-        #     "objeto_usuario": {
-        #         "first_name": "PrimeiroNomeTeste99",
-        #         "last_name": "SobrenomeTeste99",
-        #         "email": "email99@teste.com",
-        #         "username": "usernameteste99",
-        #         "password": "Abcd2341"
-        #     }
-        # }
+        self.funcionario.usuario.groups.add(self.grupo_coordenadores)
         response = self.client.post(url, self.data_create_aluno, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 

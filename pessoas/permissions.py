@@ -8,11 +8,9 @@ class AlunoPermission(permissions.BasePermission):
         if request.user.is_superuser:
             return True
         elif request.method == 'GET' and not request.user.groups.exists():
-            print('cheguei 1')
             aluno_id = view.kwargs.get('pk')
             return str(request.user.usuario_pessoa.id) == str(aluno_id)
         elif request.method == 'GET' and request.user.groups.filter(name='Professores').exists():
-            print('cheguei 2')
             return True
         elif request.user.groups.filter(name__in=['Coordenadores', 'Diretores']).exists():
             return True

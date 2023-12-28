@@ -84,18 +84,19 @@ class PessoaMixin(EscolaMixin):
             escola=self.make_escola(**escola_data),
         )
 
-    def get_auth_data(self, username='user', password='pass'):
+    def get_auth_data(self, username='user', password='pass', is_superuser=True):
         userdata = {
             'username': username,
             'password': password,
+            'is_superuser': is_superuser
         }
         user = self.make_usuario(
             username=userdata.get('username'),
             password=userdata.get('password'),
-            is_superuser=True,
+            is_superuser=userdata.get('is_superuser'),
         )
         response = self.client.post(
-            reverse('recipes:token_obtain_pair'), data={**userdata}
+            reverse('token_obtain_pair'), data={**userdata}
         )
         return {
             'jwt_access_token': response.data.get('access'),
@@ -118,7 +119,7 @@ class PessoasTestBase(TestCase, PessoaMixin):
         # Cria um usuário normal para testar autenticação
         self.aluno = self.make_aluno(usuario_data={'is_superuser': False})
 
-        usuario = {
+        usuario_funcionario = {
             'username': 'funcionarioteste',
             'password': '12345678',
             'is_superuser': False
@@ -129,16 +130,16 @@ class PessoasTestBase(TestCase, PessoaMixin):
             'nome': 'Nova Escola Teste',
         }
 
-        self.make_grupo('Professores')
-        self.make_grupo('Coordenadores')
-        self.make_grupo('Diretores')
+        self.grupo_professores = self.make_grupo('Professores')
+        self.grupo_coordenadores = self.make_grupo('Coordenadores')
+        self.grupo_diretores = self.make_grupo('Diretores')
 
         self.funcionario = self.make_funcionario(
-            usuario_data=usuario,
+            usuario_data=usuario_funcionario,
             escola_data=escola,
         )
 
-        self.user = self.make_usuario(
+        self.usuario = self.make_usuario(
             first_name='AdminTeste',
             last_name='TesteAdmin',
             username='admintest',
@@ -170,7 +171,82 @@ class PessoasTestBase(TestCase, PessoaMixin):
             }
         }
 
+        self.data_create_funcionario = {
+            "matricula": "0000000199",
+            "cpf": "88888889993",
+            "escola": 1,
+            "objeto_usuario": {
+                "first_name": "PrimeiroNomeTeste199",
+                "last_name": "SobrenomeTeste199",
+                "email": "email199@teste.com",
+                "username": "usernameteste199",
+                "password": "Abcd2341"
+            }
+        }
+
+        self.data_create_professor = {
+            "matricula": "0000000299",
+            "cpf": "88888899993",
+            "escola": 1,
+            "grupos_add": ["Professores"],
+            "objeto_usuario": {
+                "first_name": "PrimeiroNomeTeste299",
+                "last_name": "SobrenomeTeste299",
+                "email": "email299@teste.com",
+                "username": "usernameteste299",
+                "password": "Abcd2341"
+            }
+        }
+
+        self.data_create_coordenador = {
+            "matricula": "0000000499",
+            "cpf": "88888899994",
+            "escola": 1,
+            "grupos_add": ["Coordenadores"],
+            "objeto_usuario": {
+                "first_name": "PrimeiroNomeTeste499",
+                "last_name": "SobrenomeTeste499",
+                "email": "email499@teste.com",
+                "username": "usernameteste499",
+                "password": "Abcd2341"
+            }
+        }
+
+        self.data_create_diretor = {
+            "matricula": "0000000599",
+            "cpf": "88888899995",
+            "escola": 1,
+            "grupos_add": ["Diretores"],
+            "objeto_usuario": {
+                "first_name": "PrimeiroNomeTeste599",
+                "last_name": "SobrenomeTeste599",
+                "email": "email599@teste.com",
+                "username": "usernameteste599",
+                "password": "Abcd2341"
+            }
+        }
+
+        self.data_update_funcionario = {
+            "matricula": "1000000200",
+            "cpf": "18888889994",
+            "objeto_usuario": {
+                "first_name": "PrimeiroNomeTeste1200",
+                "last_name": "SobrenomeTeste1200",
+                "email": "email1200@teste.com",
+            }
+        }
+
+        self.data_update_professor = {
+            "matricula": "0002000300",
+            "cpf": "28888899994",
+            "objeto_usuario": {
+                "first_name": "PrimeiroNomeTeste2300",
+                "last_name": "SobrenomeTeste2300",
+                "email": "email2300@teste.com",
+            }
+        }
+
         # Gera token de acesso para o usuário normal
-        self.make_authenticate(self.aluno)
+        self.make_authenticate(self.usuario)
 
         return super().setUp()
