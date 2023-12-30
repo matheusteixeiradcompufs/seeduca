@@ -1,8 +1,28 @@
 from rest_framework import viewsets
 
-from pessoas.models import Aluno, Funcionario
-from pessoas.permissions import AlunoPermission, FuncionarioPermission
-from pessoas.serializers import AlunoSerializer, FuncionarioSerializer
+from pessoas.models import Aluno, Funcionario, Responsavel, Boletim, Avaliacao, Frequencia, DiaLetivo, Transporte, \
+    TelefonePessoa, EmailPessoa, TelefoneTransporte
+from pessoas.permissions import AlunoPermission, FuncionarioPermission, ResponsavelPermission, BoletimPermission, \
+    AvaliacaoPermission, FrequenciaPermission, DiaLetivoPermission, TransportePermission
+from pessoas.serializers import AlunoSerializer, FuncionarioSerializer, ResponsavelSerializer, BoletimSerializer, \
+    AvaliacaoSerializer, FrequenciaSerializer, DiaLetivoSerializer, TransporteSerializer, TelefonePessoaSerializer, \
+    EmailPessoaSerializer, TelefoneTransporteSerializer
+
+
+class TelefonePessoaViewSet(viewsets.ModelViewSet):
+    queryset = TelefonePessoa.objects.all()
+    serializer_class = TelefonePessoaSerializer
+    permission_classes = [
+        ResponsavelPermission,
+    ]
+
+
+class EmailPessoaViewSet(viewsets.ModelViewSet):
+    queryset = EmailPessoa.objects.all()
+    serializer_class = EmailPessoaSerializer
+    permission_classes = [
+        ResponsavelPermission,
+    ]
 
 
 class AlunoViewSet(viewsets.ModelViewSet):
@@ -10,6 +30,62 @@ class AlunoViewSet(viewsets.ModelViewSet):
     serializer_class = AlunoSerializer
     permission_classes = [
         AlunoPermission,
+    ]
+
+
+class ResponsavelViewSet(viewsets.ModelViewSet):
+    queryset = Responsavel.objects.all()
+    serializer_class = ResponsavelSerializer
+    permission_classes = [
+        ResponsavelPermission,
+    ]
+
+
+class BoletimViewSet(viewsets.ModelViewSet):
+    queryset = Boletim.objects.all()
+    serializer_class = BoletimSerializer
+    permission_classes = [
+        BoletimPermission,
+    ]
+
+
+class AvaliacaoViewSet(viewsets.ModelViewSet):
+    queryset = Avaliacao.objects.all()
+    serializer_class = AvaliacaoSerializer
+    permission_classes = [
+        AvaliacaoPermission,
+    ]
+
+
+class FrequenciaViewSet(viewsets.ModelViewSet):
+    queryset = Frequencia.objects.all()
+    serializer_class = FrequenciaSerializer
+    permission_classes = [
+        FrequenciaPermission,
+    ]
+
+
+class DiaLetivoViewSet(viewsets.ModelViewSet):
+    queryset = DiaLetivo.objects.all()
+    serializer_class = DiaLetivoSerializer
+    permission_classes = [
+        DiaLetivoPermission,
+    ]
+
+
+class TransporteViewSet(viewsets.ModelViewSet):
+    queryset = Transporte.objects.all()
+    serializer_class = TransporteSerializer
+    permission_classes = [
+        TransportePermission,
+    ]
+
+
+class TelefoneTransporteViewSet(viewsets.ModelViewSet):
+    queryset = TelefoneTransporte.objects.all()
+    serializer_class = TelefoneTransporteSerializer
+    permission_classes = [
+        TransportePermission,
     ]
 
 

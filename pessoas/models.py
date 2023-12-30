@@ -41,8 +41,6 @@ class TelefonePessoa(Telefone):
     pessoa = models.ForeignKey(
         Pessoa,
         on_delete=models.CASCADE,
-        null=True,
-        blank=True,
         related_name='pessoa_telefones'
     )
 
@@ -57,8 +55,6 @@ class EmailPessoa(Email):
     pessoa = models.ForeignKey(
         Pessoa,
         on_delete=models.CASCADE,
-        null=True,
-        blank=True,
         related_name='pessoa_emails'
     )
 
@@ -70,6 +66,14 @@ class EmailPessoa(Email):
 
 
 class Aluno(Pessoa):
+    eh_pcd = models.BooleanField(
+        default=False
+    )
+    descricao_pcd = models.TextField(
+        verbose_name='descrição da pcd',
+        blank=True,
+        null=True,
+    )
     turma = models.ManyToManyField(
         Turma,
         blank=True,
@@ -80,39 +84,19 @@ class Aluno(Pessoa):
         return str(self.usuario)
 
 
-class EhPCD(models.Model):
-    eh_pcd = models.BooleanField(
-        default=False
-    )
-    descricao = models.TextField()
-    aluno = models.OneToOneField(
-        Aluno,
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name='aluno_pcd'
-    )
-
-    def __str__(self):
-        return str(self.eh_pcd)
-
-    class Meta:
-        verbose_name = 'É PCD'
-
-
 class Responsavel(models.Model):
     cpf = models.CharField(
         max_length=11,
         unique=True
     )
-    nome = models.CharField(max_length=255)
+    nome = models.CharField(
+        max_length=255
+    )
     observacao = models.TextField()
     aluno = models.ForeignKey(
         Aluno,
         on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name='aluno_responsaveis'
+        related_name='aluno_responsaveis',
     )
 
     def __str__(self):
@@ -154,11 +138,17 @@ class Boletim(models.Model):
 
     class Meta:
         verbose_name_plural = 'boletins'
+        unique_together = ['ano', 'aluno']
 
 
 class Avaliacao(models.Model):
-    nome = models.CharField(max_length=100)
-    nota = models.FloatField()
+    nome = models.CharField(
+        max_length=100
+    )
+    nota = models.FloatField(
+        blank=True,
+        null=True,
+    )
     aluno = models.ForeignKey(
         Aluno,
         on_delete=models.CASCADE,
@@ -189,7 +179,6 @@ class Avaliacao(models.Model):
 
 
 class Frequencia(models.Model):
-    nome = models.CharField(max_length=100)
     ano = YearField()
     percentual = models.FloatField(
         blank=True,
@@ -206,6 +195,7 @@ class Frequencia(models.Model):
 
     class Meta:
         verbose_name = 'frequência'
+        unique_together = ['ano', 'aluno']
 
 
 class DiaLetivo(models.Model):
@@ -214,7 +204,7 @@ class DiaLetivo(models.Model):
     frequencia = models.ForeignKey(
         Frequencia,
         on_delete=models.CASCADE,
-        related_name='frequencia_diasletivos'
+        related_name='frequencia_diasletivos',
     )
 
     def __str__(self):
@@ -223,6 +213,7 @@ class DiaLetivo(models.Model):
     class Meta:
         verbose_name = 'dia letivo'
         verbose_name_plural = 'dias letivos'
+        unique_together = ['data', 'frequencia']
 
 
 class Transporte(models.Model):
@@ -267,9 +258,7 @@ class TelefoneTransporte(Telefone):
     transporte = models.ForeignKey(
         Transporte,
         on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-        related_name='transporte_telefones'
+        related_name='transporte_telefones',
     )
 
     def __str__(self):

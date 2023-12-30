@@ -1,4 +1,4 @@
-from pessoas.models import TelefonePessoa, EmailPessoa, EhPCD, Responsavel
+from pessoas.models import TelefonePessoa, EmailPessoa, Responsavel
 from pessoas.tests.test_base_pessoas import PessoasTestBase
 
 
@@ -17,10 +17,6 @@ class PessoasModelsTestCase(PessoasTestBase):
 
     def test_aluno_model(self):
         self.assertEqual(str(self.aluno), str(self.aluno.usuario))
-
-    def test_ehpcd_model(self):
-        ehpcd = EhPCD.objects.create(eh_pcd=True, descricao='Teste PCD', aluno=self.aluno)
-        self.assertEqual(str(ehpcd), 'True')
 
     def test_responsavel_model(self):
         responsavel = Responsavel.objects.create(cpf='98765432101', nome='Responsavel Teste', observacao='Observacao teste', aluno=self.aluno)

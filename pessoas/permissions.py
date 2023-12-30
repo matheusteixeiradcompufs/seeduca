@@ -1,6 +1,16 @@
-from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 from rest_framework import permissions
+
+
+class TelefonePessoaPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.groups.filter(name__in=['Coordenadores', 'Diretores']).exists() or request.user.is_superuser:
+            return True
+
+
+class EmailPessoaPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.groups.filter(name__in=['Coordenadores', 'Diretores']).exists() or request.user.is_superuser:
+            return True
 
 
 class AlunoPermission(permissions.BasePermission):
@@ -13,6 +23,50 @@ class AlunoPermission(permissions.BasePermission):
         elif request.method == 'GET' and request.user.groups.filter(name='Professores').exists():
             return True
         elif request.user.groups.filter(name__in=['Coordenadores', 'Diretores']).exists():
+            return True
+
+
+class ResponsavelPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.groups.filter(name__in=['Coordenadores', 'Diretores']).exists() or request.user.is_superuser:
+            return True
+
+
+class BoletimPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.groups.filter(name__in=['Coordenadores', 'Diretores']).exists() or request.user.is_superuser:
+            return True
+
+
+class AvaliacaoPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.groups.filter(name__in=['Coordenadores', 'Diretores']).exists() or request.user.is_superuser:
+            return True
+        elif request.user.groups.filter(name='Professores').exists() and request.method == 'PATCH':
+            return True
+        else:
+            return False
+
+
+class FrequenciaPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.groups.filter(name__in=['Coordenadores', 'Diretores']).exists() or request.user.is_superuser:
+            return True
+
+
+class DiaLetivoPermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.groups.filter(name__in=['Coordenadores', 'Diretores']).exists() or request.user.is_superuser:
+            return True
+        elif request.user.groups.filter(name='Professores').exists() and request.method in ['POST', 'PATCH']:
+            return True
+        else:
+            return False
+
+
+class TransportePermission(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.user.groups.filter(name__in=['Coordenadores', 'Diretores']).exists() or request.user.is_superuser:
             return True
 
 

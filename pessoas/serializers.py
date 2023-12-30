@@ -2,14 +2,36 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
 from escolas.serializers import TelefoneSerializer, EmailSerializer, EscolaSerializer
-from pessoas.models import Aluno, Funcionario
+from pessoas.models import Aluno, Funcionario, Responsavel, Boletim, Avaliacao, Frequencia, DiaLetivo, Transporte, \
+    TelefonePessoa, EmailPessoa, TelefoneTransporte
+
+
+class TelefonePessoaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TelefonePessoa
+        fields = [
+            'id',
+            'numero',
+            'pessoa',
+        ]
+
+
+class EmailPessoaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EmailPessoa
+        fields = [
+            'id',
+            'endereco',
+            'pessoa',
+        ]
 
 
 class GrupoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = [
-            'name'
+            'id',
+            'name',
         ]
 
 
@@ -66,6 +88,108 @@ class UsuarioSerializer(serializers.ModelSerializer):
         return super(UsuarioSerializer, self).update(instance, validated_data)
 
 
+class ResponsavelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Responsavel
+        fields = [
+            'id',
+            'cpf',
+            'nome',
+            'observacao',
+            'aluno',
+        ]
+
+
+class AvaliacaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Avaliacao
+        fields = [
+            'id',
+            'nome',
+            'nota',
+            'aluno',
+            'disciplina',
+            'boletim',
+            'turma',
+        ]
+
+
+class BoletimSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Boletim
+        fields = [
+            'id',
+            'ano',
+            'aluno',
+            'objetos_avaliacoes',
+        ]
+
+    objetos_avaliacoes = AvaliacaoSerializer(
+        many=True,
+        source='boletim_avaliacoes',
+        read_only=True,
+    )
+
+
+class DiaLetivoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DiaLetivo
+        fields = [
+            'id',
+            'data',
+            'presenca',
+            'frequencia',
+        ]
+
+
+class FrequenciaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Frequencia
+        fields = [
+            'id',
+            'ano',
+            'percentual',
+            'aluno',
+            'objetos_diasletivos',
+        ]
+    objetos_diasletivos = DiaLetivoSerializer(
+        many=True,
+        source='frequencia_diasletivos',
+        read_only=True,
+    )
+
+
+class TelefoneTransporteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TelefoneTransporte
+        fields = [
+            'id',
+            'numero',
+            'transporte',
+        ]
+
+
+class TransporteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Transporte
+        fields = [
+            'id',
+            'placa',
+            'ano',
+            'tipo',
+            'nomeMotorista',
+            'nomeAuxiliar',
+            'itinerario',
+            'aluno',
+            'objetos_telefones',
+        ]
+    objetos_telefones = TelefoneSerializer(
+        many=True,
+        source='transporte_telefones',
+        read_only=True,
+    )
+
+
 def criar_usuario(classe, classe_data, usuario_data):
     usuario_serializer = UsuarioSerializer(data=usuario_data)
     if usuario_serializer.is_valid():
@@ -98,11 +222,19 @@ class AlunoSerializer(serializers.ModelSerializer):
             'cpf',
             'data_nascimento',
             'endereco',
+            'eh_pcd',
+            'descricao_pcd',
             'escola',
+            'turma',
             'objeto_escola',
             'objeto_usuario',
             'objetos_telefones',
             'objetos_emails',
+            'objetos_responsaveis',
+            'objetos_boletins',
+            'objetos_frequencias',
+            'objetos_transportes',
+            # 'objetos_turmas',
         ]
 
     objeto_escola = EscolaSerializer(
@@ -124,6 +256,31 @@ class AlunoSerializer(serializers.ModelSerializer):
         source='pessoa_emails',
         read_only=True,
     )
+    objetos_responsaveis = ResponsavelSerializer(
+        many=True,
+        source='aluno_responsaveis',
+        read_only=True,
+    )
+    objetos_boletins = BoletimSerializer(
+        many=True,
+        source='aluno_boletins',
+        read_only=True,
+    )
+    objetos_frequencias = FrequenciaSerializer(
+        many=True,
+        source='aluno_frequencias',
+        read_only=True,
+    )
+    objetos_transportes = TransporteSerializer(
+        many=True,
+        source='alunos_transportes',
+        read_only=True,
+    )
+    # objetos_turmas = TurmaSerializer(
+    #     many=True,
+    #     source='turma',
+    #     read_only=True,
+    # )
 
     def create(self, validated_data):
 
@@ -151,10 +308,12 @@ class FuncionarioSerializer(serializers.ModelSerializer):
             'endereco',
             'formacao',
             'escola',
+            'turma',
             'objeto_escola',
             'objeto_usuario',
             'objetos_telefones',
             'objetos_emails',
+            # 'objetos_turmas',
         ]
 
     objeto_escola = EscolaSerializer(
@@ -176,6 +335,11 @@ class FuncionarioSerializer(serializers.ModelSerializer):
         source='pessoa_emails',
         read_only=True,
     )
+    # objetos_turmas = TurmaSerializer(
+    #     many=True,
+    #     source='turma',
+    #     read_only=True,
+    # )
 
     def create(self, validated_data):
 
