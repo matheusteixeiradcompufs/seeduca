@@ -20,7 +20,7 @@ class Escola(models.Model):
     imagem = models.ImageField(upload_to='escola_images/', blank=True, null=True, default='')
 
     def __str__(self):
-        return self.nome
+        return str(self.nome)
 
     def save(self, *args, **kwargs):
         self.atualizado_em = timezone.now()
@@ -33,14 +33,14 @@ class Telefone(models.Model):
     numero = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.numero
+        return str(self.numero)
 
 
 class TelefoneEscola(Telefone):
-    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, null=True, blank=True, related_name='escola_telefones')
+    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='escola_telefones')
 
     def __str__(self):
-        return self.numero
+        return str(self.numero)
 
     class Meta:
         verbose_name = 'telefone'
@@ -50,14 +50,14 @@ class Email(models.Model):
     endereco = models.EmailField()
 
     def __str__(self):
-        return self.endereco
+        return str(self.endereco)
 
 
 class EmailEscola(Email):
-    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, null=True, blank=True, related_name='escola_emails')
+    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='escola_emails')
 
     def __str__(self):
-        return self.endereco
+        return str(self.endereco)
 
     class Meta:
         verbose_name = 'e-mail'
@@ -67,7 +67,7 @@ class Disciplina(models.Model):
     nome = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
-        return self.nome
+        return str(self.nome)
 
 
 class Sala(models.Model):
@@ -79,33 +79,53 @@ class Sala(models.Model):
         return '{:03}'.format(self.numero)
 
 
-class AgendaEscolar(models.Model):
+class Turma(models.Model):
     nome = models.CharField(max_length=100)
+    ano = YearField()
+    turno = models.CharField(max_length=10)
+    sala = models.ForeignKey(Sala, on_delete=models.CASCADE, related_name='sala_turmas')
+    disciplina = models.ManyToManyField(Disciplina, blank=True, related_name='disciplinas_turmas')
 
     def __str__(self):
-        return self.nome
+        return str(self.nome)
 
     class Meta:
+        unique_together = ['nome', 'ano', 'turno']
+
+
+class AgendaEscolar(models.Model):
+    turma = models.OneToOneField(Turma, on_delete=models.CASCADE, related_name='turma_agenda')
+
+    def __str__(self):
+        return 'Agenda do ' + str(self.turma)
+
+    class Meta:
+        verbose_name = 'agenda escolar'
         verbose_name_plural = 'agendas escolares'
 
 
 class DiaAgenda(models.Model):
-    data = models.DateField(unique=True)
+    data = models.DateField()
     disciplina = models.ManyToManyField(Disciplina, blank=True, related_name='disciplinas_dias')
-    agenda = models.ForeignKey(AgendaEscolar, blank=True, null=True, on_delete=models.CASCADE, related_name='agenda_dias')
+    agenda = models.ForeignKey(AgendaEscolar, on_delete=models.CASCADE, related_name='agenda_dias')
 
     def __str__(self):
-        return self.data.strftime('%d/%m/%Y')
+        return str(self.data)
+
+    class Meta:
+        verbose_name = 'dia da agenda'
+        verbose_name_plural = 'dias da agenda'
+        unique_together = ['data', 'agenda']
 
 
 class Aviso(models.Model):
     titulo = models.CharField(max_length=100)
     texto = models.TextField()
     publicado_em = models.DateTimeField(auto_now_add=True)
-    diaAgenda = models.ForeignKey(DiaAgenda, verbose_name='dia da agenda', blank=True, null=True, on_delete=models.CASCADE, related_name='dia_avisos')
+    diaAgenda = models.ForeignKey(DiaAgenda, verbose_name='dia da agenda', on_delete=models.CASCADE, related_name='dia_avisos')
 
     def __str__(self):
-        return self.titulo
+        return str(self.titulo)
 
 
 class Tarefa(models.Model):
@@ -114,10 +134,10 @@ class Tarefa(models.Model):
     tipo = models.BooleanField(default=False)
     cadastrada_em = models.DateTimeField(auto_now_add=True)
     entrega = models.DateTimeField(blank=True, null=True)
-    diaAgenda = models.ForeignKey(DiaAgenda, verbose_name='dia da agenda', blank=True, null=True, on_delete=models.CASCADE, related_name='dia_tarefas')
+    diaAgenda = models.ForeignKey(DiaAgenda, verbose_name='dia da agenda', on_delete=models.CASCADE, related_name='dia_tarefas')
 
     def __str__(self):
-        return self.nome
+        return str(self.nome)
 
 
 class ItemCardapioMerenda(models.Model):
@@ -125,7 +145,7 @@ class ItemCardapioMerenda(models.Model):
     descricao = models.TextField()
 
     def __str__(self):
-        return self.nome
+        return str(self.nome)
 
     class Meta:
         verbose_name = 'ítem do cardápio'
@@ -133,27 +153,15 @@ class ItemCardapioMerenda(models.Model):
 
 
 class CardapioMerenda(models.Model):
+    data = models.DateField()
+    turno = models.CharField(max_length=50, blank=True, null=True)
     item = models.ManyToManyField(ItemCardapioMerenda, blank=True, related_name='cardapios_itens')
-    diaAgenda = models.ForeignKey(DiaAgenda, verbose_name='dia da agenda', blank=True, null=True, on_delete=models.CASCADE, related_name='dia_cardapios')
+    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='escola_cardapios')
 
     def __str__(self):
-        return 'Cardápio ' + str(self.diaAgenda)
+        return 'Cardápio ' + str(self.data) + ' turno ' + str(self.turno)
 
     class Meta:
         verbose_name = 'cardápio da merenda'
         verbose_name_plural = 'cardápios da merenda'
-
-
-class Turma(models.Model):
-    nome = models.CharField(max_length=100)
-    ano = YearField()
-    turno = models.CharField(max_length=10)
-    sala = models.ForeignKey(Sala, null=True, blank=True, on_delete=models.CASCADE, related_name='sala_turmas')
-    agenda = models.OneToOneField(AgendaEscolar, blank=True, null=True, on_delete=models.CASCADE, related_name='agenda_turma')
-    disciplina = models.ManyToManyField(Disciplina, blank=True, related_name='disciplinas_turmas')
-
-    def __str__(self):
-        return self.nome
-
-    class Meta:
-        unique_together = ['nome', 'ano', 'turno']
+        unique_together = ['data', 'turno']

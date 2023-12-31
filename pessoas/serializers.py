@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
-from escolas.serializers import TelefoneSerializer, EmailSerializer, EscolaSerializer
+from escolas.serializers import EscolaSerializer, TurmaSerializer
 from pessoas.models import Aluno, Funcionario, Responsavel, Boletim, Avaliacao, Frequencia, DiaLetivo, Transporte, \
     TelefonePessoa, EmailPessoa, TelefoneTransporte
 
@@ -183,7 +183,7 @@ class TransporteSerializer(serializers.ModelSerializer):
             'aluno',
             'objetos_telefones',
         ]
-    objetos_telefones = TelefoneSerializer(
+    objetos_telefones = TelefoneTransporteSerializer(
         many=True,
         source='transporte_telefones',
         read_only=True,
@@ -234,7 +234,7 @@ class AlunoSerializer(serializers.ModelSerializer):
             'objetos_boletins',
             'objetos_frequencias',
             'objetos_transportes',
-            # 'objetos_turmas',
+            'objetos_turmas',
         ]
 
     objeto_escola = EscolaSerializer(
@@ -246,12 +246,12 @@ class AlunoSerializer(serializers.ModelSerializer):
         many=False,
         source='usuario',
     )
-    objetos_telefones = TelefoneSerializer(
+    objetos_telefones = TelefonePessoaSerializer(
         many=True,
         source='pessoa_telefones',
         read_only=True,
     )
-    objetos_emails = EmailSerializer(
+    objetos_emails = EmailPessoaSerializer(
         many=True,
         source='pessoa_emails',
         read_only=True,
@@ -276,11 +276,11 @@ class AlunoSerializer(serializers.ModelSerializer):
         source='alunos_transportes',
         read_only=True,
     )
-    # objetos_turmas = TurmaSerializer(
-    #     many=True,
-    #     source='turma',
-    #     read_only=True,
-    # )
+    objetos_turmas = TurmaSerializer(
+        many=True,
+        source='turma',
+        read_only=True,
+    )
 
     def create(self, validated_data):
 
@@ -313,7 +313,7 @@ class FuncionarioSerializer(serializers.ModelSerializer):
             'objeto_usuario',
             'objetos_telefones',
             'objetos_emails',
-            # 'objetos_turmas',
+            'objetos_turmas',
         ]
 
     objeto_escola = EscolaSerializer(
@@ -325,21 +325,21 @@ class FuncionarioSerializer(serializers.ModelSerializer):
         many=False,
         source='usuario',
     )
-    objetos_telefones = TelefoneSerializer(
+    objetos_telefones = TelefonePessoaSerializer(
         many=True,
         source='pessoa_telefones',
         read_only=True,
     )
-    objetos_emails = EmailSerializer(
+    objetos_emails = EmailPessoaSerializer(
         many=True,
         source='pessoa_emails',
         read_only=True,
     )
-    # objetos_turmas = TurmaSerializer(
-    #     many=True,
-    #     source='turma',
-    #     read_only=True,
-    # )
+    objetos_turmas = TurmaSerializer(
+        many=True,
+        source='turma',
+        read_only=True,
+    )
 
     def create(self, validated_data):
 

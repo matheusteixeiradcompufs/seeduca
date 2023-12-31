@@ -15,9 +15,14 @@ class EmailInline(admin.TabularInline):
     extra = 1
 
 
+class CardapioMerendaInline(admin.TabularInline):
+    model = CardapioMerenda
+    extra = 1
+
+
 @admin.register(Escola)
 class EscolaAdmin(ModelAdmin):
-    inlines = [TelefoneInline, EmailInline, ]
+    inlines = [TelefoneInline, EmailInline, CardapioMerendaInline, ]
 
 
 class DiaAgendaInline(admin.TabularInline):
@@ -40,14 +45,9 @@ class TarefaInline(admin.TabularInline):
     extra = 1
 
 
-class CardapioMerendaInline(admin.TabularInline):
-    model = CardapioMerenda
-    extra = 1
-
-
 @admin.register(DiaAgenda)
-class SalaAdmin(ModelAdmin):
-    inlines = [AvisoInline, TarefaInline, CardapioMerendaInline, ]
+class DiaAgendaAdmin(ModelAdmin):
+    inlines = [AvisoInline, TarefaInline, ]
 
 
 @admin.register(Sala)

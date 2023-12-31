@@ -45,7 +45,7 @@ class TelefonePessoa(Telefone):
     )
 
     def __str__(self):
-        return self.numero
+        return str(self.numero)
 
     class Meta:
         verbose_name = 'telefone'
@@ -59,7 +59,7 @@ class EmailPessoa(Email):
     )
 
     def __str__(self):
-        return self.endereco
+        return str(self.endereco)
 
     class Meta:
         verbose_name = 'e-mail'
@@ -100,7 +100,7 @@ class Responsavel(models.Model):
     )
 
     def __str__(self):
-        return self.nome
+        return str(self.nome)
 
     class Meta:
         verbose_name = 'responsável'
@@ -171,7 +171,7 @@ class Avaliacao(models.Model):
     )
 
     def __str__(self):
-        return self.nome
+        return str(self.nome)
 
     class Meta:
         verbose_name = 'avaliação'
@@ -208,7 +208,7 @@ class DiaLetivo(models.Model):
     )
 
     def __str__(self):
-        return self.data
+        return str(self.data)
 
     class Meta:
         verbose_name = 'dia letivo'
@@ -248,7 +248,7 @@ class Transporte(models.Model):
     )
 
     def __str__(self):
-        return self.placa
+        return str(self.placa)
 
     class Meta:
         unique_together = ['placa', 'ano']
@@ -262,7 +262,7 @@ class TelefoneTransporte(Telefone):
     )
 
     def __str__(self):
-        return self.numero
+        return str(self.numero)
 
     class Meta:
         verbose_name = 'telefone'
