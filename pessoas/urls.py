@@ -6,6 +6,7 @@ from pessoas import views
 app_name = 'pessoas'
 
 pessoas_api_v1_router = SimpleRouter()
+
 pessoas_api_v1_router.register(
     'telefone/api/v1',
     views.TelefonePessoaViewSet,
