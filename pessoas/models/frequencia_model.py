@@ -7,13 +7,12 @@ from pessoas.models.aluno_model import Aluno
 class Frequencia(models.Model):
     ano = YearField()
     percentual = models.FloatField(
-        blank=True,
-        null=True
+        default=0,
     )
     aluno = models.ForeignKey(
         Aluno,
         on_delete=models.CASCADE,
-        related_name='aluno_frequencias'
+        related_name='aluno_frequencias',
     )
 
     def __str__(self):
