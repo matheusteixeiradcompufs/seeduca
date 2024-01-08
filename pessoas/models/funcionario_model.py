@@ -9,7 +9,7 @@ class Funcionario(Pessoa):
         null=True,
         blank=True
     )
-    turma = models.ManyToManyField(
+    turmas = models.ManyToManyField(
         Turma,
         blank=True,
         related_name='turmas_funcionarios'

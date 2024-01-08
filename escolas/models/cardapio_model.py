@@ -7,7 +7,7 @@ from escolas.models.item_cardapio_model import ItemCardapioMerenda
 class CardapioMerenda(models.Model):
     data = models.DateField()
     turno = models.CharField(max_length=50)
-    item = models.ManyToManyField(ItemCardapioMerenda, blank=True, related_name='cardapios_itens')
+    itens = models.ManyToManyField(ItemCardapioMerenda, blank=True, related_name='cardapios_itens')
     escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='escola_cardapios')
 
     def __str__(self):

@@ -13,7 +13,7 @@ class Aluno(Pessoa):
         blank=True,
         null=True,
     )
-    turma = models.ManyToManyField(
+    turmas = models.ManyToManyField(
         Turma,
         blank=True,
         related_name='turmas_alunos'

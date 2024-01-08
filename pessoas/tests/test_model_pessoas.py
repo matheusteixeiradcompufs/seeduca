@@ -75,13 +75,37 @@ class PessoasModelsTestCase(PessoasTestBase):
         self.assertEqual(str(funcionario), 'usuarioteste')
 
     def test_boletim_model(self):
+        turma = Turma.objects.create(
+            nome='Teste',
+            ano=2023,
+            turno='teste',
+            sala=Sala.objects.create(
+                numero=0,
+                escola=self.make_escola(
+                    cnpj='00000000000002'
+                )
+            )
+        )
+        self.aluno.turmas.add(turma)
         boletim = Boletim.objects.create(
-            ano=2000,
+            ano=2023,
             aluno=self.aluno,
         )
-        self.assertEqual(str(boletim), 'Boletim de ' + str(self.aluno.usuario.first_name) + ' em ' + str(2000))
+        self.assertEqual(str(boletim), 'Boletim de ' + str(self.aluno.usuario.first_name) + ' em ' + str(2023))
 
     def test_avaliacao_model(self):
+        turma = Turma.objects.create(
+            nome='Teste',
+            ano=2023,
+            turno='teste',
+            sala=Sala.objects.create(
+                numero=0,
+                escola=self.make_escola(
+                    cnpj='00000000000002'
+                )
+            )
+        )
+        self.aluno.turmas.add(turma)
         avaliacao = Avaliacao.objects.create(
             nome='Avaliacao Teste',
             aluno=self.aluno,
@@ -89,20 +113,10 @@ class PessoasModelsTestCase(PessoasTestBase):
                 nome='Teste'
             ),
             boletim=Boletim.objects.create(
-                ano=2000,
+                ano=2023,
                 aluno=self.aluno,
             ),
-            turma=Turma.objects.create(
-                nome='Teste',
-                ano='2023',
-                turno='teste',
-                sala=Sala.objects.create(
-                    numero='000',
-                    escola=self.make_escola(
-                        cnpj='00000000000002'
-                    )
-                )
-            )
+            turma=turma
         )
         self.assertEqual(str(avaliacao), 'Avaliacao Teste')
 

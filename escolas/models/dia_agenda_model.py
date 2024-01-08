@@ -6,7 +6,7 @@ from escolas.models.disciplina_model import Disciplina
 
 class DiaAgenda(models.Model):
     data = models.DateField()
-    disciplina = models.ManyToManyField(Disciplina, blank=True, related_name='disciplinas_dias')
+    disciplinas = models.ManyToManyField(Disciplina, blank=True, related_name='disciplinas_dias')
     agenda = models.ForeignKey(AgendaEscolar, on_delete=models.CASCADE, related_name='agenda_dias')
 
     def __str__(self):

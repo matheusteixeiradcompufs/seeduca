@@ -10,7 +10,7 @@ class Turma(models.Model):
     ano = YearField()
     turno = models.CharField(max_length=10)
     sala = models.ForeignKey(Sala, on_delete=models.CASCADE, related_name='sala_turmas')
-    disciplina = models.ManyToManyField(Disciplina, blank=True, related_name='disciplinas_turmas')
+    disciplinas = models.ManyToManyField(Disciplina, blank=True, related_name='disciplinas_turmas')
 
     def __str__(self):
         return str(self.nome)

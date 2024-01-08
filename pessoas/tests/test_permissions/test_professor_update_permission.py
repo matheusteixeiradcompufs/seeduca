@@ -26,13 +26,6 @@ class ProfessorUpdatePermissionTest(PessoasAPITestBase):
         self.basenamelist = 'pessoas:aluno-boletim-avaliacao-api-list'
         self.basenamedetail = 'pessoas:aluno-boletim-avaliacao-api-detail'
 
-        boletim = Boletim.objects.create(
-            ano=2000,
-            aluno=self.aluno,
-        )
-        disciplina = Disciplina.objects.create(
-            nome='Teste'
-        )
         turma = Turma.objects.create(
             nome='Turma Teste',
             ano=2000,
@@ -44,9 +37,18 @@ class ProfessorUpdatePermissionTest(PessoasAPITestBase):
                 )
             )
         )
+        disciplina = Disciplina.objects.create(
+            nome='Teste'
+        )
+        turma.disciplinas.add(disciplina)
+        self.aluno.turmas.add(turma)
+        boletim = Boletim.objects.create(
+            ano=2000,
+            aluno=self.aluno,
+        )
 
         self.data_instance = {
-            'nome': 'Teste',
+            'nome': 'A1',
             'nota': 0,
             'aluno': self.aluno,
             'boletim': boletim,
@@ -55,7 +57,7 @@ class ProfessorUpdatePermissionTest(PessoasAPITestBase):
         }
 
         self.data_instance2 = {
-            'nome': 'Teste 2',
+            'nome': 'A2',
             'nota': 0,
             'aluno': self.aluno.id,
             'boletim': boletim.id,

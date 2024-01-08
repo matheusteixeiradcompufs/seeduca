@@ -11,12 +11,12 @@ class CardapioMerendaSerializer(serializers.ModelSerializer):
             'id',
             'data',
             'turno',
-            'item',
+            'itens',
             'escola',
             'objetos_itens',
         ]
     objetos_itens = ItemCardapioMerendaSerializer(
         many=True,
-        source='item',
+        source='itens',
         read_only=True,
     )

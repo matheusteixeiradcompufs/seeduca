@@ -23,7 +23,7 @@ class AlunoSerializer(serializers.ModelSerializer):
             'eh_pcd',
             'descricao_pcd',
             'escola',
-            'turma',
+            'turmas',
             'objeto_escola',
             'objeto_usuario',
             'objetos_telefones',
@@ -76,7 +76,7 @@ class AlunoSerializer(serializers.ModelSerializer):
     )
     objetos_turmas = TurmaSerializer(
         many=True,
-        source='turma',
+        source='turmas',
         read_only=True,
     )
 

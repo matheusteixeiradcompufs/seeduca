@@ -10,10 +10,6 @@ class AvaliacaoAPITest(PessoasAPITestBase):
         self.basenamelist = 'pessoas:aluno-boletim-avaliacao-api-list'
         self.basenamedetail = 'pessoas:aluno-boletim-avaliacao-api-detail'
 
-        boletim = Boletim.objects.create(
-            ano=2000,
-            aluno=self.aluno,
-        )
         disciplina = Disciplina.objects.create(
             nome='Teste'
         )
@@ -28,9 +24,15 @@ class AvaliacaoAPITest(PessoasAPITestBase):
                 )
             )
         )
+        turma.disciplinas.add(disciplina)
+        self.aluno.turmas.add(turma)
+        boletim = Boletim.objects.create(
+            ano=2000,
+            aluno=self.aluno,
+        )
 
         self.data_instance = {
-            'nome': 'Teste',
+            'nome': 'A1',
             'aluno': self.aluno,
             'boletim': boletim,
             'disciplina': disciplina,
@@ -38,7 +40,7 @@ class AvaliacaoAPITest(PessoasAPITestBase):
         }
 
         self.data_instance2 = {
-            'nome': 'Teste 2',
+            'nome': 'A2',
             'aluno': self.aluno.id,
             'boletim': boletim.id,
             'disciplina': disciplina.id,

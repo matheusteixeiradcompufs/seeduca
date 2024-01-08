@@ -18,7 +18,7 @@ class FuncionarioSerializer(serializers.ModelSerializer):
             'endereco',
             'formacao',
             'escola',
-            'turma',
+            'turmas',
             'objeto_escola',
             'objeto_usuario',
             'objetos_telefones',
@@ -47,7 +47,7 @@ class FuncionarioSerializer(serializers.ModelSerializer):
     )
     objetos_turmas = TurmaSerializer(
         many=True,
-        source='turma',
+        source='turmas',
         read_only=True,
     )
 

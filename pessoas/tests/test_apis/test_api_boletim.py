@@ -1,3 +1,4 @@
+from escolas.models import Turma, Sala
 from pessoas.models import Boletim
 from pessoas.tests.test_apis.test_api_base import PessoasAPITestBase
 
@@ -9,18 +10,41 @@ class BoletimAPITest(PessoasAPITestBase):
         self.basenamelist = 'pessoas:aluno-boletim-api-list'
         self.basenamedetail = 'pessoas:aluno-boletim-api-detail'
 
+        escola = self.make_escola(
+            cnpj='00000000000002'
+        )
+        sala = Sala.objects.create(
+            numero=0,
+            escola=escola
+        )
+        turma = Turma.objects.create(
+            nome='Teste',
+            ano=2023,
+            turno='teste',
+            sala=sala
+        )
+        self.aluno.turmas.add(turma)
+
         self.data_instance = {
-            'ano': 2000,
+            'ano': 2023,
             'aluno': self.aluno,
         }
 
+        turma = Turma.objects.create(
+            nome='Teste2',
+            ano=2024,
+            turno='teste',
+            sala=sala
+        )
+        self.aluno.turmas.add(turma)
+
         self.data_instance2 = {
-            'ano': 2001,
+            'ano': 2024,
             'aluno': self.aluno.id,
         }
 
         self.data_instance_update = {
-            'ano': 2002,
+            'ano': 2024,
         }
 
         self.instance = Boletim.objects.create(**self.data_instance)

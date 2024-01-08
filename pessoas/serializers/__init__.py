@@ -5,6 +5,7 @@ from .dia_letivo_serializer import DiaLetivoSerializer
 from .email_pessoa_serializer import EmailPessoaSerializer
 from .frequencia_serializer import FrequenciaSerializer
 from .funcionario_serializer import FuncionarioSerializer
+from .media_serializer import MediaSerializer
 from .responsavel_serializer import ResponsavelSerializer
 from .telefone_pessoa_serializer import TelefonePessoaSerializer
 from .telefone_transporte_serializer import TelefoneTransporteSerializer

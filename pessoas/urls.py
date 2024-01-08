@@ -38,6 +38,11 @@ pessoas_api_v1_router.register(
     basename='aluno-boletim-avaliacao-api',
 )
 pessoas_api_v1_router.register(
+    'aluno/boletim/media/api/v1',
+    views.MediaViewSet,
+    basename='aluno-boletim-media-api',
+)
+pessoas_api_v1_router.register(
     'aluno/frequencia/api/v1',
     views.FrequenciaViewSet,
     basename='aluno-frequencia-api',

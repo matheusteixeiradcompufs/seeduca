@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from pessoas.models import Aluno, TelefonePessoa, EmailPessoa, Funcionario, Boletim, Avaliacao, Frequencia, DiaLetivo, Transporte, TelefoneTransporte
+from pessoas.models import Aluno, TelefonePessoa, EmailPessoa, Funcionario, Boletim, Avaliacao, Frequencia, DiaLetivo, \
+    Transporte, TelefoneTransporte, Media
 
 
 class TelefoneTransporteInline(admin.TabularInline):
@@ -50,9 +51,14 @@ class AvaliacaoInline(admin.TabularInline):
     extra = 1
 
 
+class MediaInline(admin.TabularInline):
+    model = Media
+    extra = 1
+
+
 @admin.register(Boletim)
 class BoletimAdmin(admin.ModelAdmin):
-    inlines = [AvaliacaoInline]
+    inlines = [AvaliacaoInline, MediaInline]
 
 
 class DiaLetivoInline(admin.TabularInline):

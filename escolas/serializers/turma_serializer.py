@@ -14,7 +14,7 @@ class TurmaSerializer(serializers.ModelSerializer):
             'ano',
             'turno',
             'sala',
-            'disciplina',
+            'disciplinas',
             'objeto_agenda',
             'objetos_disciplinas',
         ]
@@ -25,6 +25,6 @@ class TurmaSerializer(serializers.ModelSerializer):
     )
     objetos_disciplinas = DisciplinaSerializer(
         many=True,
-        source='disciplina',
+        source='disciplinas',
         read_only=True,
     )
