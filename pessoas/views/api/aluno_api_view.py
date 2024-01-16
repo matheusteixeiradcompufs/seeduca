@@ -9,5 +9,5 @@ class AlunoViewSet(viewsets.ModelViewSet):
     queryset = Aluno.objects.all()
     serializer_class = AlunoSerializer
     permission_classes = [
-        AlunoPermission,
+        # AlunoPermission,
     ]

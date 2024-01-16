@@ -40,7 +40,7 @@ class DiaAgendaAPITest(PessoasAPITestBase):
         }
 
         self.data_instance_update = {
-            'data': '2001-02-01',
+            'data': '2004-02-01',
         }
 
         self.instance = DiaAgenda.objects.create(**self.data_instance)
