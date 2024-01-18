@@ -2,6 +2,7 @@ from django.urls import include, path
 from rest_framework.routers import SimpleRouter
 
 from pessoas import views
+from pessoas.views import GetMe
 
 app_name = 'pessoas'
 
@@ -71,4 +72,5 @@ pessoas_api_v1_router.register(
 
 urlpatterns = [
     path('', include(pessoas_api_v1_router.urls)),
+    path('me', GetMe.as_view(), name='get_me'),
 ]
