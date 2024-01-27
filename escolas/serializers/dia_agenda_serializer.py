@@ -11,6 +11,7 @@ class DiaAgendaSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'data',
+            'util',
             'disciplinas',
             'agenda',
             'objetos_avisos',

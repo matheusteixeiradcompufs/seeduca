@@ -27,3 +27,8 @@ class IsAluno(IsAuthenticated):
 
         return aluno is not None and str(aluno) == username
 
+
+class GetPermission(IsAuthenticated):
+    def has_permission(self, request, view):
+        return request.method == 'GET'
+

@@ -25,14 +25,14 @@ class AgendaEscolar(models.Model):
             ano_turma = self.turma.ano
 
             # Preenche os dias úteis do ano da turma
-            dias_uteis = self.get_dias_uteis_do_ano(ano_turma)
-            for dia in dias_uteis:
+            dias = self.get_dias_do_ano(ano_turma)
+            for dia in dias:
                 from escolas.models import DiaAgenda
-                DiaAgenda.objects.create(data=dia, agenda=self)
+                DiaAgenda.objects.create(data=dia[0], util=dia[1], agenda=self)
 
     @staticmethod
-    def get_dias_uteis_do_ano(ano):
-        dias_uteis = []
+    def get_dias_do_ano(ano):
+        dias = []
         # Itera sobre todos os meses do ano
         for mes in range(1, 13):
             # Obtém o último dia do mês
@@ -42,5 +42,7 @@ class AgendaEscolar(models.Model):
                 data = date(ano, mes, dia)
                 # Verifica se o dia é útil (não é sábado nem domingo)
                 if data.weekday() < 5:
-                    dias_uteis.append(data)
-        return dias_uteis
+                    dias.append((data, True))
+                else:
+                    dias.append((data, False))
+        return dias

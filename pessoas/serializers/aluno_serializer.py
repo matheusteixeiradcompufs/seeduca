@@ -24,11 +24,14 @@ class AlunoSerializer(serializers.ModelSerializer):
             'descricao_pcd',
             'escola',
             'turmas',
-            'objeto_escola',
+            # 'objeto_escola',
             'objeto_usuario',
             'objetos_telefones',
             'objetos_emails',
             'objetos_responsaveis',
+            'aluno_boletins',
+            'aluno_frequencias',
+            'alunos_transportes',
             'objetos_boletins',
             'objetos_frequencias',
             'objetos_transportes',
@@ -84,14 +87,11 @@ class AlunoSerializer(serializers.ModelSerializer):
 
         usuario_data = validated_data.pop('usuario', {})
 
-        print('!!!CHEGUEI 1!!!')
-
         return criar_usuario(Aluno, validated_data, usuario_data)
 
     def update(self, instance, validated_data):
 
         usuario_data = validated_data.pop('usuario', {})
-        print('!!!CHEGUEI 2!!!')
 
         instance = atualizar_usuario(instance, validated_data, usuario_data)
 
