@@ -1,5 +1,6 @@
 from rest_framework import serializers
 
+from escolas.serializers import DisciplinaSerializer
 from pessoas.models import Media
 
 
@@ -12,4 +13,11 @@ class MediaSerializer(serializers.ModelSerializer):
             'valor',
             'disciplina',
             'boletim',
+            'objeto_disciplina',
         ]
+
+    objeto_disciplina = DisciplinaSerializer(
+        many=False,
+        source='disciplina',
+        read_only=True,
+    )

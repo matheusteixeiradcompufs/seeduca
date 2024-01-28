@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from escolas.models import DiaAgenda
+from escolas.serializers.disciplina_serializer import DisciplinaSerializer
 from escolas.serializers.aviso_serializer import AvisoSerializer
 from escolas.serializers.tarefa_serializer import TarefaSerializer
 
@@ -14,9 +15,15 @@ class DiaAgendaSerializer(serializers.ModelSerializer):
             'util',
             'disciplinas',
             'agenda',
+            'objetos_disciplinas',
             'objetos_avisos',
             'objetos_tarefas',
         ]
+    objetos_disciplinas = DisciplinaSerializer(
+        many=True,
+        source='disciplinas',
+        read_only=True,
+    )
     objetos_avisos = AvisoSerializer(
         many=True,
         source='dia_avisos',

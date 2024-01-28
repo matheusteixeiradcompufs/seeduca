@@ -24,7 +24,7 @@ class AlunoSerializer(serializers.ModelSerializer):
             'descricao_pcd',
             'escola',
             'turmas',
-            # 'objeto_escola',
+            'objeto_escola',
             'objeto_usuario',
             'objetos_telefones',
             'objetos_emails',
