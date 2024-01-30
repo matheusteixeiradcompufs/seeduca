@@ -20,3 +20,12 @@ class Email(models.Model):
 
     def __str__(self):
         return str(self.endereco)
+
+
+class AvisoBase(models.Model):
+    titulo = models.CharField(max_length=100)
+    texto = models.TextField()
+    publicado_em = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.titulo)

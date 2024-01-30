@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from escolas.models import Escola
+from escolas.serializers.mural_avisos_serializer import MuralAvisosSerializer
 from escolas.serializers.cardapio_serializer import CardapioMerendaSerializer
 from escolas.serializers.email_escola_serializer import EmailEscolaSerializer
 from escolas.serializers.sala_serializer import SalaSerializer
@@ -24,6 +25,7 @@ class EscolaSerializer(serializers.ModelSerializer):
             'objetos_emails',
             'objetos_salas',
             'objetos_cardapios',
+            'objetos_murais',
         ]
     objetos_telefones = TelefoneEscolaSerializer(
         many=True,
@@ -43,5 +45,10 @@ class EscolaSerializer(serializers.ModelSerializer):
     objetos_cardapios = CardapioMerendaSerializer(
         many=True,
         source='escola_cardapios',
+        read_only=True,
+    )
+    objetos_murais = MuralAvisosSerializer(
+        many=True,
+        source='escola_murais',
         read_only=True,
     )

@@ -27,6 +27,16 @@ escola_api_v1_router.register(
     basename='escola-disciplina-api',
 )
 escola_api_v1_router.register(
+    'mural/api/v1',
+    views.MuralAvisosViewSet,
+    basename='escola-mural-api',
+)
+escola_api_v1_router.register(
+    'mural/aviso/api/v1',
+    views.AvisoEscolaViewSet,
+    basename='escola-mural-aviso-api',
+)
+escola_api_v1_router.register(
     'cardapio/api/v1',
     views.CardapioMerendaViewSet,
     basename='escola-cardapio-api',
