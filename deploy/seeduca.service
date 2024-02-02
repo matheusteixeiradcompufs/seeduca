@@ -1,0 +1,25 @@
+[Unit]
+Description=Gunicorn daemon (You can change if you want)
+Requires=seeduca.socket
+After=network.target
+
+[Service]
+User=matheus
+Group=www-data
+Restart=on-failure
+EnvironmentFile=/home/matheus/seeduca/.env
+WorkingDirectory=/home/matheus/seeduca
+# --error-logfile --enable-stdio-inheritance --log-level and --capture-output
+# are all for debugging purposes.
+ExecStart=/home/matheus/seeduca/venv/bin/gunicorn \
+          --error-logfile /home/matheus/seeduca/gunicorn-error-log \
+          --enable-stdio-inheritance \
+          --log-level "debug" \
+          --capture-output \
+          --access-logfile - \
+          --workers 6 \
+          --bind unix:/run/seeduca.socket \
+          appseeduca.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
