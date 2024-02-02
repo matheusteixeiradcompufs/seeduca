@@ -1,0 +1,6 @@
+SECRET_KEY = 'django-insecure--zps56k2@uh3em%zw09%d!e)7ncrzg_q258bz5teq+6oew^1tm'
+
+DEBUG = 1
+
+CORS_ALLOW_ALL_ORIGINS = 0
+
