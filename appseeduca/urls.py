@@ -7,6 +7,7 @@ from appseeduca import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('chat/', include('chat.urls')),
     path('escolas/', include('escolas.urls')),
     path('pessoas/', include('pessoas.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
