@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from pessoas.models import Aluno, TelefonePessoa, EmailPessoa, Funcionario, Boletim, Avaliacao, Frequencia, DiaLetivo, \
-    Transporte, TelefoneTransporte, Media
+    Transporte, TelefoneTransporte, Media, AgendaRecados, Recado
 
 
 class TelefoneTransporteInline(admin.TabularInline):
@@ -40,10 +40,15 @@ class FrequenciaInline(admin.TabularInline):
     extra = 1
 
 
+class AgendaRecadosInline(admin.TabularInline):
+    model = AgendaRecados
+    extra = 1
+
+
 @admin.register(Aluno)
 class AlunoAdmin(admin.ModelAdmin):
     list_display = ('id', '__str__', )
-    inlines = [TelefonePessoaInline, EmailPessoaInline, BoletimInline, FrequenciaInline]
+    inlines = [TelefonePessoaInline, EmailPessoaInline, BoletimInline, FrequenciaInline, AgendaRecadosInline]
 
 
 class AvaliacaoInline(admin.TabularInline):
@@ -69,3 +74,13 @@ class DiaLetivoInline(admin.TabularInline):
 @admin.register(Frequencia)
 class FrequenciaAdmin(admin.ModelAdmin):
     inlines = [DiaLetivoInline, ]
+
+
+class RecadoInline(admin.TabularInline):
+    model = Recado
+    extra = 1
+
+
+@admin.register(AgendaRecados)
+class AgendaRecadosAdmin(admin.ModelAdmin):
+    inlines = [RecadoInline, ]
