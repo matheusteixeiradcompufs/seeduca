@@ -63,6 +63,16 @@ pessoas_api_v1_router.register(
     views.TelefoneTransporteViewSet,
     basename='aluno-transporte-telefone-api',
 )
+pessoas_api_v1_router.register(
+    'aluno/agenda/api/v1',
+    views.TransporteViewSet,
+    basename='aluno-agenda-api',
+)
+pessoas_api_v1_router.register(
+    'aluno/agenda/recado/api/v1',
+    views.TelefoneTransporteViewSet,
+    basename='aluno-agenda-recado-api',
+)
 
 pessoas_api_v1_router.register(
     'funcionario/api/v1',
