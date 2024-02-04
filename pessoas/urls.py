@@ -65,12 +65,12 @@ pessoas_api_v1_router.register(
 )
 pessoas_api_v1_router.register(
     'aluno/agenda/api/v1',
-    views.TransporteViewSet,
+    views.AgendaRecadosViewSet,
     basename='aluno-agenda-api',
 )
 pessoas_api_v1_router.register(
     'aluno/agenda/recado/api/v1',
-    views.TelefoneTransporteViewSet,
+    views.RecadoViewSet,
     basename='aluno-agenda-recado-api',
 )
 
