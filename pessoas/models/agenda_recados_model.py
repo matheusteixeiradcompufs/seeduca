@@ -9,7 +9,7 @@ class AgendaRecados(models.Model):
     aluno = models.ForeignKey(
         Aluno,
         on_delete=models.CASCADE,
-        related_name='aluno_recados'
+        related_name='aluno_agendas'
     )
 
     def __str__(self):

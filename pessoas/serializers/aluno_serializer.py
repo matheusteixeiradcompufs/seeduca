@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from escolas.serializers import EscolaSerializer, TurmaSerializer
 from pessoas.models import Aluno
+from pessoas.serializers import AgendaRecadosSerializer
 from pessoas.serializers.telefone_pessoa_serializer import TelefonePessoaSerializer
 from pessoas.serializers.email_pessoa_serializer import EmailPessoaSerializer
 from pessoas.serializers.responsavel_serializer import ResponsavelSerializer
@@ -28,6 +29,7 @@ class AlunoSerializer(serializers.ModelSerializer):
             'objeto_usuario',
             'objetos_telefones',
             'objetos_emails',
+            'objetos_agendas',
             'objetos_responsaveis',
             'objetos_boletins',
             'objetos_frequencias',
@@ -52,6 +54,11 @@ class AlunoSerializer(serializers.ModelSerializer):
     objetos_emails = EmailPessoaSerializer(
         many=True,
         source='pessoa_emails',
+        read_only=True,
+    )
+    objetos_agendas = AgendaRecadosSerializer(
+        many=True,
+        source='aluno_agendas',
         read_only=True,
     )
     objetos_responsaveis = ResponsavelSerializer(
