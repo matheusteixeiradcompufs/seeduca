@@ -8,7 +8,7 @@ class TelefonePessoa(Telefone):
     pessoa = models.ForeignKey(
         Pessoa,
         on_delete=models.CASCADE,
-        related_name='pessoa_telefones'
+        related_name='pessoa_telefones',
     )
 
     def __str__(self):

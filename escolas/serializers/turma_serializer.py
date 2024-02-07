@@ -13,6 +13,8 @@ class TurmaSerializer(serializers.ModelSerializer):
             'nome',
             'ano',
             'turno',
+            'criada_em',
+            'atualizada_em',
             'sala',
             'disciplinas',
             'objeto_agenda',

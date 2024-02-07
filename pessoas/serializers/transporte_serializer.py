@@ -15,6 +15,8 @@ class TransporteSerializer(serializers.ModelSerializer):
             'nomeMotorista',
             'nomeAuxiliar',
             'itinerario',
+            'criado_em',
+            'atualizado_em',
             'aluno',
             'objetos_telefones',
         ]

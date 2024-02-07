@@ -11,6 +11,8 @@ class MediaSerializer(serializers.ModelSerializer):
             'id',
             'tipo',
             'valor',
+            'criada_em',
+            'atualizada_em',
             'disciplina',
             'boletim',
             'objeto_disciplina',

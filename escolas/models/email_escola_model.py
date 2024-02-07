@@ -5,7 +5,11 @@ from escolas.models.escola_model import Escola
 
 
 class EmailEscola(Email):
-    escola = models.ForeignKey(Escola, on_delete=models.CASCADE, related_name='escola_emails')
+    escola = models.ForeignKey(
+        Escola,
+        on_delete=models.CASCADE,
+        related_name='escola_emails',
+    )
 
     def __str__(self):
         return str(self.endereco)

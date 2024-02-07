@@ -21,12 +21,16 @@ class AlunoSerializer(serializers.ModelSerializer):
             'cpf',
             'data_nascimento',
             'endereco',
+            'criado_em',
+            'atualizado_em',
+            'usuario',
+            'escolas',
             'eh_pcd',
             'descricao_pcd',
-            'escola',
+            'retrato',
             'turmas',
-            'objeto_escola',
             'objeto_usuario',
+            'objetos_escolas',
             'objetos_telefones',
             'objetos_emails',
             'objetos_agendas',
@@ -37,14 +41,14 @@ class AlunoSerializer(serializers.ModelSerializer):
             'objetos_turmas',
         ]
 
-    objeto_escola = EscolaSerializer(
-        many=False,
-        source='escola',
-        read_only=True,
-    )
     objeto_usuario = UsuarioSerializer(
         many=False,
         source='usuario',
+    )
+    objetos_escolas = EscolaSerializer(
+        many=True,
+        source='escolas',
+        read_only=True,
     )
     objetos_telefones = TelefonePessoaSerializer(
         many=True,

@@ -7,19 +7,26 @@ from pessoas.models.agenda_recados_model import AgendaRecados
 
 class Recado(models.Model):
     texto = models.TextField()
-    eh_aluno = models.BooleanField(default=False)
-    publicado_em = models.DateTimeField(auto_now_add=True)
+    eh_aluno = models.BooleanField(
+        default=False,
+    )
+    publicado_em = models.DateTimeField(
+        auto_now_add=True,
+    )
+    atualizado_em = models.DateTimeField(
+        auto_now=True,
+    )
     pessoa = models.ForeignKey(
         Pessoa,
         blank=True,
         null=True,
         on_delete=models.CASCADE,
-        related_name='pessoa_recados'
+        related_name='pessoa_recados',
     )
     agenda = models.ForeignKey(
         AgendaRecados,
         on_delete=models.CASCADE,
-        related_name='agenda_recados'
+        related_name='agenda_recados',
     )
 
     def __str__(self):

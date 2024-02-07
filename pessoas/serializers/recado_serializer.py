@@ -11,6 +11,7 @@ class RecadoSerializer(serializers.ModelSerializer):
             'texto',
             'eh_aluno',
             'publicado_em',
+            'atualizado_em',
             'pessoa',
             'agenda',
         ]

@@ -6,10 +6,10 @@ from pessoas.models.aluno_model import Aluno
 class Responsavel(models.Model):
     cpf = models.CharField(
         max_length=11,
-        unique=True
+        unique=True,
     )
     nome = models.CharField(
-        max_length=255
+        max_length=255,
     )
     observacao = models.TextField()
     aluno = models.ForeignKey(

@@ -17,6 +17,7 @@ class EscolaSerializer(serializers.ModelSerializer):
             'nome',
             'endereco',
             'num_salas',
+            'quantidade_alunos',
             'descricao',
             'criado_em',
             'atualizado_em',

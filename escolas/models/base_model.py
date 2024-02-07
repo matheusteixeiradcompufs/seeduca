@@ -9,7 +9,9 @@ class YearField(models.IntegerField):
 
 
 class Telefone(models.Model):
-    numero = models.CharField(max_length=20)
+    numero = models.CharField(
+        max_length=20,
+    )
 
     def __str__(self):
         return str(self.numero)
@@ -23,9 +25,16 @@ class Email(models.Model):
 
 
 class AvisoBase(models.Model):
-    titulo = models.CharField(max_length=100)
+    titulo = models.CharField(
+        max_length=100,
+    )
     texto = models.TextField()
-    publicado_em = models.DateTimeField(auto_now_add=True)
+    publicado_em = models.DateTimeField(
+        auto_now_add=True,
+    )
+    atualizado_em = models.DateTimeField(
+        auto_now=True,
+    )
 
     def __str__(self):
         return str(self.titulo)

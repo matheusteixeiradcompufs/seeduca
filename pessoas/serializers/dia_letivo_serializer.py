@@ -10,5 +10,7 @@ class DiaLetivoSerializer(serializers.ModelSerializer):
             'id',
             'data',
             'presenca',
+            'criado_em',
+            'atualizado_em',
             'frequencia',
         ]

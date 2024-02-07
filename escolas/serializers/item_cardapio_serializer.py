@@ -10,4 +10,6 @@ class ItemCardapioMerendaSerializer(serializers.ModelSerializer):
             'id',
             'nome',
             'descricao',
+            'criado_em',
+            'atualizado_em',
         ]

@@ -21,8 +21,14 @@ class Avaliacao(models.Model):
     nota = models.FloatField(
         default=0,
     )
-    computada = models.BooleanField(
+    finalizada = models.BooleanField(
         default=False,
+    )
+    criada_em = models.DateTimeField(
+        auto_now_add=True,
+    )
+    atualizada_em = models.DateTimeField(
+        auto_now=True,
     )
     aluno = models.ForeignKey(
         Aluno,
@@ -51,3 +57,33 @@ class Avaliacao(models.Model):
     class Meta:
         verbose_name = 'avaliação'
         verbose_name_plural = 'avaliações'
+
+    def save(self, *args, **kwargs):
+        avaliacao = super().save(*args, **kwargs)
+        if self.nome == 'A1':
+            self.boletim.boletim_medias.filter(tipo='M1').update(valor=self.nota)
+        if self.nome in ['A2', 'R1']:
+            self.boletim.boletim_medias.filter(tipo='M1').update(
+                valor=(self.boletim.boletim_medias.get(tipo='M1').valor + self.nota) / 2
+            )
+        if self.nome == 'A3':
+            self.boletim.boletim_medias.filter(tipo='M2').update(valor=self.nota)
+        if self.nome in ['A4', 'R2']:
+            media_m2 = self.boletim.boletim_medias.get(tipo='M2').valor
+            self.boletim.boletim_medias.filter(tipo='M2').update(valor=(media_m2 + self.nota) / 2)
+            media_mg = (self.boletim.boletim_medias.get(tipo='M1').valor + media_m2) / 2
+            self.boletim.boletim_medias.filter(tipo='MG').update(valor=media_mg)
+        return avaliacao
+
+    # def save(self, *args, **kwargs):
+    #     avaliacao = super().save(*args, **kwargs)
+    #     if self.name == 'A1':
+    #         self.boletim.boletim_medias[0].valor = self.nota
+    #     if self.name in ['A2', 'R1']:
+    #         self.boletim.boletim_medias[0].valor = (self.boletim.boletim_medias[0].valor + self.nota) / 2
+    #     if self.name == 'A3':
+    #         self.boletim.boletim_medias[1].valor = self.nota
+    #     if self.name in ['A4', 'R2']:
+    #         self.boletim.boletim_medias[1].valor = (self.boletim.boletim_medias[1].valor + self.nota) / 2
+    #         self.boletim.boletim_medias[2].valor = (self.boletim.boletim_medias[0].valor + self.boletim.boletim_medias[1].valor) / 2
+    #     return avaliacao

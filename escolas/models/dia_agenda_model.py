@@ -6,9 +6,25 @@ from escolas.models.disciplina_model import Disciplina
 
 class DiaAgenda(models.Model):
     data = models.DateField()
-    util = models.BooleanField(default=False)
-    disciplinas = models.ManyToManyField(Disciplina, blank=True, related_name='disciplinas_dias')
-    agenda = models.ForeignKey(AgendaEscolar, on_delete=models.CASCADE, related_name='agenda_dias')
+    util = models.BooleanField(
+        default=False,
+    )
+    disciplinas = models.ManyToManyField(
+        Disciplina,
+        blank=True,
+        related_name='disciplinas_dias',
+    )
+    agenda = models.ForeignKey(
+        AgendaEscolar,
+        on_delete=models.CASCADE,
+        related_name='agenda_dias',
+    )
+    criado_em = models.DateTimeField(
+        auto_now_add=True,
+    )
+    atualizado_em = models.DateTimeField(
+        auto_now=True,
+    )
 
     def __str__(self):
         return str(self.data)

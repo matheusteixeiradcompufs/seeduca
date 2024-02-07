@@ -8,7 +8,7 @@ class EmailPessoa(Email):
     pessoa = models.ForeignKey(
         Pessoa,
         on_delete=models.CASCADE,
-        related_name='pessoa_emails'
+        related_name='pessoa_emails',
     )
 
     def __str__(self):

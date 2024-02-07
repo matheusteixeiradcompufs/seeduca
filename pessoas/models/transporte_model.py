@@ -5,7 +5,9 @@ from pessoas.models.aluno_model import Aluno
 
 
 class Transporte(models.Model):
-    placa = models.CharField(max_length=7)
+    placa = models.CharField(
+        max_length=7,
+    )
     ano = YearField()
     tipo = models.CharField(
         max_length=20,
@@ -27,12 +29,18 @@ class Transporte(models.Model):
     )
     itinerario = models.TextField(
         blank=True,
-        null=True
+        null=True,
+    )
+    criado_em = models.DateTimeField(
+        auto_now_add=True,
+    )
+    atualizado_em = models.DateTimeField(
+        auto_now=True,
     )
     aluno = models.ManyToManyField(
         Aluno,
         blank=True,
-        related_name='alunos_transportes'
+        related_name='alunos_transportes',
     )
 
     def __str__(self):

@@ -11,5 +11,6 @@ class AvisoEscolaSerializer(serializers.ModelSerializer):
             'titulo',
             'texto',
             'publicado_em',
+            'atualizado_em',
             'mural',
         ]

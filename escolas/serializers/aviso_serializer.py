@@ -11,5 +11,6 @@ class AvisoSerializer(serializers.ModelSerializer):
             'titulo',
             'texto',
             'publicado_em',
+            'atualizado_em',
             'diaAgenda',
         ]

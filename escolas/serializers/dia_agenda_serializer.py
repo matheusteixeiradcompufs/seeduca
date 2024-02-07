@@ -15,6 +15,8 @@ class DiaAgendaSerializer(serializers.ModelSerializer):
             'util',
             'disciplinas',
             'agenda',
+            'criado_em',
+            'atualizado_em',
             'objetos_disciplinas',
             'objetos_avisos',
             'objetos_tarefas',

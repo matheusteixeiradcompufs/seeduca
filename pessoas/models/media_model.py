@@ -18,6 +18,12 @@ class Media(models.Model):
     valor = models.FloatField(
         default=0,
     )
+    criada_em = models.DateTimeField(
+        auto_now_add=True,
+    )
+    atualizada_em = models.DateTimeField(
+        auto_now=True,
+    )
     disciplina = models.ForeignKey(
         Disciplina,
         on_delete=models.CASCADE,

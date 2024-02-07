@@ -12,6 +12,7 @@ class TarefaSerializer(serializers.ModelSerializer):
             'descricao',
             'tipo',
             'cadastrada_em',
+            'atualizado_em',
             'entrega',
             'diaAgenda',
         ]

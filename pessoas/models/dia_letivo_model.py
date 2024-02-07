@@ -13,6 +13,12 @@ class DiaLetivo(models.Model):
         on_delete=models.CASCADE,
         related_name='frequencia_diasletivos',
     )
+    criado_em = models.DateTimeField(
+        auto_now_add=True,
+    )
+    atualizado_em = models.DateTimeField(
+        auto_now=True,
+    )
 
     def __str__(self):
         return str(self.data)

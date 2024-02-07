@@ -12,6 +12,8 @@ class SalaSerializer(serializers.ModelSerializer):
             'numero',
             'quantidade_alunos',
             'escola',
+            'criado_em',
+            'atualizado_em',
             'objetos_turmas',
         ]
     objetos_turmas = TurmaSerializer(
