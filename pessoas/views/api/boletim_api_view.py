@@ -9,5 +9,5 @@ class BoletimViewSet(viewsets.ModelViewSet):
     queryset = Boletim.objects.all()
     serializer_class = BoletimSerializer
     permission_classes = [
-        CoordenadorFullPermission,
+        # CoordenadorFullPermission,
     ]

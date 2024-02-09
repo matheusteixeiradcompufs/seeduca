@@ -52,7 +52,8 @@ class DiaAgendaAdmin(ModelAdmin):
 
 @admin.register(Sala)
 class SalaAdmin(ModelAdmin):
-    ...
+    list_display = ("__str__", "escola")
+    list_filter = ("numero", "escola")
 
 
 @admin.register(Disciplina)
@@ -60,9 +61,21 @@ class DisciplinaAdmin(ModelAdmin):
     ...
 
 
+class AgendaInLine(admin.TabularInline):
+    model = AgendaEscolar
+    extra = 1
+
+
 @admin.register(Turma)
 class TurmaAdmin(ModelAdmin):
-    ...
+    inlines = [AgendaInLine, ]
+    list_display = ("__str__", 'sala', 'ano', "sala_escola")
+    list_filter = ("nome", 'sala', "ano", "sala__escola")
+
+    def sala_escola(self, obj):
+        return obj.sala.escola
+
+    sala_escola.short_description = 'Escola'
 
 
 @admin.register(CardapioMerenda)

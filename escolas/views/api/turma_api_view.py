@@ -9,5 +9,5 @@ class TurmaViewSet(viewsets.ModelViewSet):
     queryset = Turma.objects.all()
     serializer_class = TurmaSerializer
     permission_classes = [
-        CoordenadorFullPermission,
+        # CoordenadorFullPermission,
     ]

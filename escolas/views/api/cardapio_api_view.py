@@ -9,5 +9,5 @@ class CardapioMerendaViewSet(viewsets.ModelViewSet):
     queryset = CardapioMerenda.objects.all()
     serializer_class = CardapioMerendaSerializer
     permission_classes = [
-        CoordenadorFullPermission,
+        # CoordenadorFullPermission,
     ]

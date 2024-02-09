@@ -4,12 +4,9 @@ from escolas.models.escola_model import Escola
 
 
 class Sala(models.Model):
-    numero = models.IntegerField(
-        unique=True,
-    )
+    numero = models.IntegerField()
     quantidade_alunos = models.IntegerField(
-        null=True,
-        blank=True,
+        default=0,
     )
     escola = models.ForeignKey(
         Escola,
@@ -26,15 +23,28 @@ class Sala(models.Model):
     def __str__(self):
         return '{:03}'.format(self.numero)
 
+    class Meta:
+        unique_together = ['numero', 'escola']
+
     def save(self, *args, **kwargs):
+        quantidade_anterior = 0
 
-        quantidade = self.quantidade_alunos
+        if self.pk:
+            # Se a instância já existe, obter a quantidade anterior de alunos
+            sala_anterior = Sala.objects.get(pk=self.pk)
+            quantidade_anterior = sala_anterior.quantidade_alunos
 
-        sala = super().save(*args, **kwargs)
+        # Salvar a instância
+        super(Sala, self).save(*args, **kwargs)
 
-        self.escola.quantidade_alunos = self.escola.quantidade_alunos - quantidade + self.quantidade_alunos
+        # Atualizar a quantidade de alunos na escola
+        diferenca_quantidade = self.quantidade_alunos - quantidade_anterior
+        self.escola.quantidade_alunos += diferenca_quantidade
+        self.escola.save()
 
-        self.escola.num_salas = len(self.escola.escola_salas)
+        # Atualizar o número de salas na escola
+        self.escola.num_salas = self.escola.escola_salas.count()
+        self.escola.save()
 
-        return sala
+        return
 

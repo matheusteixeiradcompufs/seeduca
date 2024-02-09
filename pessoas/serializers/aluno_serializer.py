@@ -9,7 +9,7 @@ from pessoas.serializers.responsavel_serializer import ResponsavelSerializer
 from pessoas.serializers.boletim_serializer import BoletimSerializer
 from pessoas.serializers.frequencia_serializer import FrequenciaSerializer
 from pessoas.serializers.transporte_serializer import TransporteSerializer
-from pessoas.serializers.usuario_serializer import UsuarioSerializer, criar_usuario, atualizar_usuario
+from pessoas.serializers.usuario_serializer import UsuarioSerializer
 
 
 class AlunoSerializer(serializers.ModelSerializer):
@@ -20,10 +20,10 @@ class AlunoSerializer(serializers.ModelSerializer):
             'matricula',
             'cpf',
             'data_nascimento',
+            'usuario',
             'endereco',
             'criado_em',
             'atualizado_em',
-            'usuario',
             'escolas',
             'eh_pcd',
             'descricao_pcd',
@@ -44,6 +44,7 @@ class AlunoSerializer(serializers.ModelSerializer):
     objeto_usuario = UsuarioSerializer(
         many=False,
         source='usuario',
+        read_only=True,
     )
     objetos_escolas = EscolaSerializer(
         many=True,
@@ -91,16 +92,16 @@ class AlunoSerializer(serializers.ModelSerializer):
         read_only=True,
     )
 
-    def create(self, validated_data):
-
-        usuario_data = validated_data.pop('usuario', {})
-
-        return criar_usuario(Aluno, validated_data, usuario_data)
-
-    def update(self, instance, validated_data):
-
-        usuario_data = validated_data.pop('usuario', {})
-
-        instance = atualizar_usuario(instance, validated_data, usuario_data)
-
-        return super(AlunoSerializer, self).update(instance, validated_data)
+    # def create(self, validated_data):
+    #
+    #     usuario_data = validated_data.pop('usuario', {})
+    #
+    #     return criar_usuario(Aluno, validated_data, usuario_data)
+    #
+    # def update(self, instance, validated_data):
+    #
+    #     usuario_data = validated_data.pop('usuario', {})
+    #
+    #     instance = atualizar_usuario(instance, validated_data, usuario_data)
+    #
+    #     return super(AlunoSerializer, self).update(instance, validated_data)

@@ -9,5 +9,5 @@ class TelefoneTransporteViewSet(viewsets.ModelViewSet):
     queryset = TelefoneTransporte.objects.all()
     serializer_class = TelefoneTransporteSerializer
     permission_classes = [
-        CoordenadorFullPermission,
+        # CoordenadorFullPermission,
     ]

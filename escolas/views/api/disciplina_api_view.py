@@ -9,5 +9,5 @@ class DisciplinaViewSet(viewsets.ModelViewSet):
     queryset = Disciplina.objects.all()
     serializer_class = DisciplinaSerializer
     permission_classes = [
-        CoordenadorFullPermission,
+        # CoordenadorFullPermission,
     ]

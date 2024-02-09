@@ -37,6 +37,14 @@ class Boletim(models.Model):
                 disciplinas_da_turma = turma.disciplinas.all()
 
                 for disciplina in disciplinas_da_turma:
+                    # Cria as médias (M1, M2, MG)
+                    for tipo_media, _ in Media.TIPO_MEDIA_CHOICES:
+                        Media.objects.create(
+                            tipo=tipo_media,
+                            disciplina=disciplina,
+                            boletim=self
+                        )
+
                     # Cria as avaliações (A1, A2, R1, A3, A4, R2)
                     for tipo_avaliacao, _ in Avaliacao.TIPO_AVALIACAO_CHOICES:
                         Avaliacao.objects.create(
@@ -45,14 +53,6 @@ class Boletim(models.Model):
                             disciplina=disciplina,
                             boletim=self,
                             turma=turma
-                        )
-
-                    # Cria as médias (M1, M2, MG)
-                    for tipo_media, _ in Media.TIPO_MEDIA_CHOICES:
-                        Media.objects.create(
-                            tipo=tipo_media,
-                            disciplina=disciplina,
-                            boletim=self
                         )
         else:
             super().save(*args, **kwargs)

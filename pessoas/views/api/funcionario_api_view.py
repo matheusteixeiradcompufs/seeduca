@@ -9,7 +9,7 @@ class FuncionarioViewSet(viewsets.ModelViewSet):
     queryset = Funcionario.objects.all()
     serializer_class = FuncionarioSerializer
     permission_classes = [
-        FuncionarioPermission,
+        # FuncionarioPermission,
     ]
 
     def get_queryset(self):

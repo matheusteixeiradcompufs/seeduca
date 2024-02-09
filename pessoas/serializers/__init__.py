@@ -12,4 +12,4 @@ from .responsavel_serializer import ResponsavelSerializer
 from .telefone_pessoa_serializer import TelefonePessoaSerializer
 from .telefone_transporte_serializer import TelefoneTransporteSerializer
 from .transporte_serializer import TransporteSerializer
-from .usuario_serializer import UsuarioSerializer, criar_usuario, atualizar_usuario
+from .usuario_serializer import UsuarioSerializer, GrupoSerializer

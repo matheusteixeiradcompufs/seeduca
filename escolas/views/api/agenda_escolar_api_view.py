@@ -9,5 +9,5 @@ class AgendaEscolarViewSet(viewsets.ModelViewSet):
     queryset = AgendaEscolar.objects.all()
     serializer_class = AgendaEscolarSerializer
     permission_classes = [
-        CoordenadorFullPermission,
+        # CoordenadorFullPermission,
     ]

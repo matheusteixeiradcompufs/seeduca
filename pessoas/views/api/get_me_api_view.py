@@ -10,7 +10,7 @@ from pessoas.serializers import AlunoSerializer
 
 class GetMe(APIView):
     permission_classes = [
-        IsAluno,
+        # IsAluno,
     ]
 
     def post(self, request, *args, **kwargs):

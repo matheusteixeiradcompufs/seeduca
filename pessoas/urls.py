@@ -75,6 +75,17 @@ pessoas_api_v1_router.register(
 )
 
 pessoas_api_v1_router.register(
+    'usuario/api/v1',
+    views.UsuarioViewSet,
+    basename='usuario-api',
+)
+pessoas_api_v1_router.register(
+    'usuario/grupo/api/v1',
+    views.GrupoViewSet,
+    basename='usuario-grupo-api',
+)
+
+pessoas_api_v1_router.register(
     'funcionario/api/v1',
     views.FuncionarioViewSet,
     basename='funcionario-api',

@@ -9,5 +9,5 @@ class TelefoneEscolaViewSet(viewsets.ModelViewSet):
     queryset = TelefoneEscola.objects.all()
     serializer_class = TelefoneEscolaSerializer
     permission_classes = [
-        DiretorEscolaPermission,
+        # DiretorEscolaPermission,
     ]

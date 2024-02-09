@@ -13,3 +13,4 @@ from .api.responsavel_api_view import ResponsavelViewSet
 from .api.telefone_pessoa_api_view import TelefonePessoaViewSet
 from .api.telefone_transporte_api_view import TelefoneTransporteViewSet
 from .api.transporte_api_view import TransporteViewSet
+from .api.usuario_api_view import UsuarioViewSet, GrupoViewSet
