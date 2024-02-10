@@ -8,7 +8,7 @@ class Aviso(AvisoBase):
     diaAgenda = models.ForeignKey(
         DiaAgenda,
         verbose_name='dia da agenda',
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='dia_avisos',
     )
 

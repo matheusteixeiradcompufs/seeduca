@@ -17,7 +17,6 @@ class AvaliacaoSerializer(serializers.ModelSerializer):
             'aluno',
             'disciplina',
             'boletim',
-            'turma',
             'objeto_disciplina',
         ]
 

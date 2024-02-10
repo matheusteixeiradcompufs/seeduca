@@ -38,9 +38,3 @@ class Escola(models.Model):
 
     def __str__(self):
         return str(self.nome)
-    #
-    # def save(self, *args, **kwargs):
-    #     self.atualizado_em = timezone.now()
-    #     if not self.pk:
-    #         self.criado_em = timezone.now()
-    #     super().save(*args, **kwargs)

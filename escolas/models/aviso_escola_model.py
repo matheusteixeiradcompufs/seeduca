@@ -8,7 +8,7 @@ class AvisoEscola(AvisoBase):
     mural = models.ForeignKey(
         MuralAvisos,
         verbose_name='mural de avisos',
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='mural_avisos',
     )
 

@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 
-from escolas.models import Disciplina, Turma
+from escolas.models import Disciplina
 from pessoas.models.aluno_model import Aluno
 from pessoas.models.boletim_model import Boletim
 
@@ -45,11 +45,6 @@ class Avaliacao(models.Model):
         Boletim,
         on_delete=models.CASCADE,
         related_name='boletim_avaliacoes',
-    )
-    turma = models.ForeignKey(
-        Turma,
-        on_delete=models.CASCADE,
-        related_name='turma_avaliacoes',
     )
 
     def __str__(self):

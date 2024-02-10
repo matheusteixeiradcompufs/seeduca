@@ -30,7 +30,7 @@ class Tarefa(models.Model):
     diaAgenda = models.ForeignKey(
         DiaAgenda,
         verbose_name='dia da agenda',
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='dia_tarefas',
     )
 

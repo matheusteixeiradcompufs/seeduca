@@ -10,7 +10,7 @@ class Sala(models.Model):
     )
     escola = models.ForeignKey(
         Escola,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='escola_salas',
     )
     criado_em = models.DateTimeField(

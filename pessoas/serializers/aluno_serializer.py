@@ -1,13 +1,12 @@
 from rest_framework import serializers
 
-from escolas.serializers import EscolaSerializer, TurmaSerializer
+from escolas.serializers import TurmaSerializer
 from pessoas.models import Aluno
 from pessoas.serializers import AgendaRecadosSerializer
 from pessoas.serializers.telefone_pessoa_serializer import TelefonePessoaSerializer
 from pessoas.serializers.email_pessoa_serializer import EmailPessoaSerializer
 from pessoas.serializers.responsavel_serializer import ResponsavelSerializer
 from pessoas.serializers.boletim_serializer import BoletimSerializer
-from pessoas.serializers.frequencia_serializer import FrequenciaSerializer
 from pessoas.serializers.transporte_serializer import TransporteSerializer
 from pessoas.serializers.usuario_serializer import UsuarioSerializer
 
@@ -24,30 +23,21 @@ class AlunoSerializer(serializers.ModelSerializer):
             'endereco',
             'criado_em',
             'atualizado_em',
-            'escolas',
             'eh_pcd',
             'descricao_pcd',
             'retrato',
-            'turmas',
             'objeto_usuario',
-            'objetos_escolas',
             'objetos_telefones',
             'objetos_emails',
             'objetos_agendas',
             'objetos_responsaveis',
             'objetos_boletins',
             'objetos_transportes',
-            'objetos_turmas',
         ]
 
     objeto_usuario = UsuarioSerializer(
         many=False,
         source='usuario',
-        read_only=True,
-    )
-    objetos_escolas = EscolaSerializer(
-        many=True,
-        source='escolas',
         read_only=True,
     )
     objetos_telefones = TelefonePessoaSerializer(
@@ -80,22 +70,3 @@ class AlunoSerializer(serializers.ModelSerializer):
         source='alunos_transportes',
         read_only=True,
     )
-    objetos_turmas = TurmaSerializer(
-        many=True,
-        source='turmas',
-        read_only=True,
-    )
-
-    # def create(self, validated_data):
-    #
-    #     usuario_data = validated_data.pop('usuario', {})
-    #
-    #     return criar_usuario(Aluno, validated_data, usuario_data)
-    #
-    # def update(self, instance, validated_data):
-    #
-    #     usuario_data = validated_data.pop('usuario', {})
-    #
-    #     instance = atualizar_usuario(instance, validated_data, usuario_data)
-    #
-    #     return super(AlunoSerializer, self).update(instance, validated_data)

@@ -1,7 +1,7 @@
 from django.db import models
 from rest_framework.exceptions import ValidationError
 
-from escolas.models import YearField, Disciplina
+from escolas.models import YearField, Disciplina, Turma
 from pessoas.models.frequencia_model import Frequencia
 from pessoas.models.aluno_model import Aluno
 
@@ -31,6 +31,11 @@ class Boletim(models.Model):
         blank=True,
         related_name='frequencia_boletim',
     )
+    turma = models.ForeignKey(
+        Turma,
+        on_delete=models.CASCADE,
+        related_name='turma_boletins',
+    )
     aluno = models.ForeignKey(
         Aluno,
         on_delete=models.CASCADE,
@@ -42,48 +47,47 @@ class Boletim(models.Model):
 
     class Meta:
         verbose_name_plural = 'boletins'
-        unique_together = ['ano', 'aluno']
+        unique_together = ['ano', 'aluno', 'turma']
 
     def save(self, *args, **kwargs):
 
         if not self.pk:
-            # Verifica se o aluno está matriculado em alguma turma do mesmo ano
-            if not self.aluno.turmas.filter(ano=self.ano).exists():
-                raise ValueError(f"O aluno {self.aluno} não está matriculado em nenhuma turma do ano {self.ano}.")
+            # # Verifica se o aluno está matriculado em alguma turma do mesmo ano
+            # if not self.aluno.turmas.filter(ano=self.ano).exists():
+            #     raise ValueError(f"O aluno {self.aluno} não está matriculado em nenhuma turma do ano {self.ano}.")
 
             super().save(*args, **kwargs)
 
-            # Obtém a turma do aluno do mesmo ano do boletim
-            turmas_do_aluno = self.aluno.turmas.filter(ano=self.ano)
+            # # Obtém a turma do aluno do mesmo ano do boletim
+            # turmas_do_aluno = self.aluno.turmas.filter(ano=self.ano)
 
             from pessoas.models.avaliacao_model import Avaliacao
             from pessoas.models.media_model import Media
-            for turma in turmas_do_aluno:
-                disciplinas_da_turma = turma.disciplinas.all()
+            # for turma in turmas_do_aluno:
+            disciplinas_da_turma = self.turma.disciplinas.all()
 
-                for disciplina in disciplinas_da_turma:
-                    Situacao.objects.create(
+            for disciplina in disciplinas_da_turma:
+                Situacao.objects.create(
+                    disciplina=disciplina,
+                    boletim=self,
+                )
+
+                # Cria as médias (M1, M2, MG)
+                for tipo_media, _ in Media.TIPO_MEDIA_CHOICES:
+                    Media.objects.create(
+                        tipo=tipo_media,
+                        disciplina=disciplina,
+                        boletim=self
+                    )
+
+                # Cria as avaliações (A1, A2, R1, A3, A4, R2)
+                for tipo_avaliacao, _ in Avaliacao.TIPO_AVALIACAO_CHOICES:
+                    Avaliacao.objects.create(
+                        nome=tipo_avaliacao,
+                        aluno=self.aluno,
                         disciplina=disciplina,
                         boletim=self,
                     )
-
-                    # Cria as médias (M1, M2, MG)
-                    for tipo_media, _ in Media.TIPO_MEDIA_CHOICES:
-                        Media.objects.create(
-                            tipo=tipo_media,
-                            disciplina=disciplina,
-                            boletim=self
-                        )
-
-                    # Cria as avaliações (A1, A2, R1, A3, A4, R2)
-                    for tipo_avaliacao, _ in Avaliacao.TIPO_AVALIACAO_CHOICES:
-                        Avaliacao.objects.create(
-                            nome=tipo_avaliacao,
-                            aluno=self.aluno,
-                            disciplina=disciplina,
-                            boletim=self,
-                            turma=turma
-                        )
         else:
             if self.encerrar:
                 situacoes = self.boletim_situacoes.filter(finalizar=False)

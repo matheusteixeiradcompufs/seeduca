@@ -28,7 +28,7 @@ class Turma(models.Model):
     )
     sala = models.ForeignKey(
         Sala,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='sala_turmas',
     )
     disciplinas = models.ManyToManyField(

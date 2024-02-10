@@ -1,6 +1,5 @@
 from django.db import models
 
-from escolas.models import Turma
 from pessoas.models.pessoa_model import Pessoa
 
 
@@ -18,11 +17,6 @@ class Aluno(Pessoa):
         blank=True,
         null=True,
         default='',
-    )
-    turmas = models.ManyToManyField(
-        Turma,
-        blank=True,
-        related_name='turmas_alunos',
     )
 
     def __str__(self):

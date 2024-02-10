@@ -1,8 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-from escolas.models import Escola
-
 
 class Pessoa(models.Model):
     matricula = models.CharField(
@@ -32,10 +30,6 @@ class Pessoa(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='usuario_pessoa',
-    )
-    escolas = models.ManyToManyField(
-        Escola,
-        related_name='escola_pessoas',
     )
 
     def __str__(self):

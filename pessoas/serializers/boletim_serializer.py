@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
+from escolas.serializers import TurmaSerializer
 from pessoas.models import Boletim
-from pessoas.serializers import FrequenciaSerializer
+from pessoas.serializers.frequencia_serializer import FrequenciaSerializer
 from pessoas.serializers.avaliacao_serializer import AvaliacaoSerializer
 from pessoas.serializers.media_serializer import MediaSerializer
 
@@ -16,11 +17,19 @@ class BoletimSerializer(serializers.ModelSerializer):
             'status',
             'encerrar',
             'frequencia',
+            'turma',
+            'objeto_turma',
+            'objeto_frequencia',
             'objetos_avaliacoes',
             'objetos_medias',
         ]
 
-    frequencia_objeto = FrequenciaSerializer(
+    objeto_turma = TurmaSerializer(
+        many=False,
+        source='turma',
+        read_only=True,
+    )
+    objeto_frequencia = FrequenciaSerializer(
         many=False,
         source='frequencia',
         read_only=True,
