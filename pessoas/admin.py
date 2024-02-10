@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from pessoas.models import Aluno, TelefonePessoa, EmailPessoa, Funcionario, Boletim, Avaliacao, Frequencia, DiaLetivo, \
-    Transporte, TelefoneTransporte, Media, AgendaRecados, Recado
+    Transporte, TelefoneTransporte, Media, AgendaRecados, Recado, Situacao
 
 
 class TelefoneTransporteInline(admin.TabularInline):
@@ -35,11 +35,6 @@ class BoletimInline(admin.TabularInline):
     extra = 1
 
 
-class FrequenciaInline(admin.TabularInline):
-    model = Frequencia
-    extra = 1
-
-
 class AgendaRecadosInline(admin.TabularInline):
     model = AgendaRecados
     extra = 1
@@ -48,22 +43,27 @@ class AgendaRecadosInline(admin.TabularInline):
 @admin.register(Aluno)
 class AlunoAdmin(admin.ModelAdmin):
     list_display = ('id', '__str__', )
-    inlines = [TelefonePessoaInline, EmailPessoaInline, BoletimInline, FrequenciaInline, AgendaRecadosInline]
+    inlines = [TelefonePessoaInline, EmailPessoaInline, BoletimInline, AgendaRecadosInline]
 
 
 class AvaliacaoInline(admin.TabularInline):
     model = Avaliacao
-    extra = 1
+    extra = 0
 
 
 class MediaInline(admin.TabularInline):
     model = Media
-    extra = 1
+    extra = 0
+
+
+class SituacaoInline(admin.TabularInline):
+    model = Situacao
+    extra = 0
 
 
 @admin.register(Boletim)
 class BoletimAdmin(admin.ModelAdmin):
-    inlines = [AvaliacaoInline, MediaInline]
+    inlines = [AvaliacaoInline, MediaInline, SituacaoInline]
 
 
 class DiaLetivoInline(admin.TabularInline):
@@ -84,3 +84,11 @@ class RecadoInline(admin.TabularInline):
 @admin.register(AgendaRecados)
 class AgendaRecadosAdmin(admin.ModelAdmin):
     inlines = [RecadoInline, ]
+
+
+@admin.register(Avaliacao)
+class AvaliacaoAdmin(admin.ModelAdmin):
+    list_display = ['__str__', 'disciplina']
+    list_filter = ['nome', 'disciplina']
+
+

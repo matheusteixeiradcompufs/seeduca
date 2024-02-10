@@ -1,7 +1,7 @@
 from .agenda_recados_model import AgendaRecados
 from .aluno_model import Aluno
 from .avaliacao_model import Avaliacao
-from .boletim_model import Boletim
+from .boletim_model import Boletim, Situacao
 from .dia_letivo_model import DiaLetivo
 from .email_pessoa_model import EmailPessoa
 from .frequencia_model import Frequencia

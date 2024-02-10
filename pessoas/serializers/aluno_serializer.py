@@ -36,7 +36,6 @@ class AlunoSerializer(serializers.ModelSerializer):
             'objetos_agendas',
             'objetos_responsaveis',
             'objetos_boletins',
-            'objetos_frequencias',
             'objetos_transportes',
             'objetos_turmas',
         ]
@@ -74,11 +73,6 @@ class AlunoSerializer(serializers.ModelSerializer):
     objetos_boletins = BoletimSerializer(
         many=True,
         source='aluno_boletins',
-        read_only=True,
-    )
-    objetos_frequencias = FrequenciaSerializer(
-        many=True,
-        source='aluno_frequencias',
         read_only=True,
     )
     objetos_transportes = TransporteSerializer(

@@ -11,7 +11,7 @@ class AvaliacaoSerializer(serializers.ModelSerializer):
             'id',
             'nome',
             'nota',
-            'finalizada',
+            'confirmar',
             'criada_em',
             'atualizada_em',
             'aluno',
