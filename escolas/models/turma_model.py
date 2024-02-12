@@ -38,7 +38,7 @@ class Turma(models.Model):
     )
 
     def __str__(self):
-        return str(self.nome)
+        return f'{str(self.nome)} em {self.ano}'
 
     class Meta:
         unique_together = ['nome', 'ano', 'turno']

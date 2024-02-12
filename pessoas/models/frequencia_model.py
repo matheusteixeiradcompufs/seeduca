@@ -1,7 +1,5 @@
 from django.db import models
 
-from escolas.models import YearField
-
 
 class Frequencia(models.Model):
     percentual = models.FloatField(
@@ -9,7 +7,7 @@ class Frequencia(models.Model):
     )
 
     def __str__(self):
-        return 'Frequência'
+        return f'Frequência de {self.frequencia_boletim.aluno} em {self.frequencia_boletim.ano}'
 
     class Meta:
         verbose_name = 'frequência'
