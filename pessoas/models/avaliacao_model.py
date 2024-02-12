@@ -55,7 +55,6 @@ class Avaliacao(models.Model):
         verbose_name_plural = 'avaliações'
 
     def save(self, *args, **kwargs):
-        super_avaliacao = super().save(*args, **kwargs)
 
         if self.pk:
             if not self.boletim.encerrar:
@@ -106,5 +105,5 @@ class Avaliacao(models.Model):
             else:
                 raise ValidationError('Os boletins encerrados não podem mais ser editados!')
 
-        return super_avaliacao
+        return super().save(*args, **kwargs)
 
