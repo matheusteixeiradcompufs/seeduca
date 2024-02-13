@@ -7,7 +7,7 @@ class Frequencia(models.Model):
     )
 
     def __str__(self):
-        return f'Frequência de {self.frequencia_boletim.aluno} em {self.frequencia_boletim.ano}'
+        return f'Frequência de {self.frequencia_boletim.aluno} em {self.frequencia_boletim.turma.ano}'
 
     class Meta:
         verbose_name = 'frequência'

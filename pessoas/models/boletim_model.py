@@ -15,7 +15,7 @@ class Boletim(models.Model):
         ('RF', 'Reprovado por falta'),
         ('RFM', 'Reprovado por falta e por média'),
     ]
-    ano = YearField()
+
     status = models.CharField(
         max_length=30,
         choices=STATUS_CHOICES,
@@ -43,11 +43,11 @@ class Boletim(models.Model):
     )
 
     def __str__(self):
-        return 'Boletim de ' + str(self.aluno.usuario.first_name) + ' em ' + str(self.ano)
+        return 'Boletim de ' + str(self.aluno.usuario.first_name) + ' em ' + str(self.turma.ano)
 
     class Meta:
         verbose_name_plural = 'boletins'
-        unique_together = ['ano', 'aluno', 'turma']
+        unique_together = ['aluno', 'turma']
 
     def save(self, *args, **kwargs):
 
