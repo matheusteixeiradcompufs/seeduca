@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 
-from escolas.models import Escola, TelefoneEscola, EmailEscola, Turma, Sala, AgendaEscolar, Disciplina, DiaAgenda, Aviso, Tarefa, \
-    CardapioMerenda, ItemCardapioMerenda
+from escolas.models import Escola, TelefoneEscola, EmailEscola, Turma, Sala, AgendaEscolar, Disciplina, DiaAgenda, \
+    Aviso, Tarefa, \
+    CardapioMerenda, ItemCardapioMerenda, MuralAvisos, AvisoEscola
 
 
 class TelefoneInline(admin.TabularInline):
@@ -86,3 +87,13 @@ class CardapioMerendaAdmin(ModelAdmin):
 @admin.register(ItemCardapioMerenda)
 class ItemCardapioMerendaAdmin(ModelAdmin):
     ...
+
+
+class AvisoEscolaInline(admin.TabularInline):
+    model = AvisoEscola
+    extra = 0
+
+
+@admin.register(MuralAvisos)
+class MuralAvisosAdmin(ModelAdmin):
+    inlines = [AvisoEscolaInline, ]
