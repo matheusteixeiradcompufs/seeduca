@@ -20,6 +20,13 @@ class TurmaSerializer(serializers.ModelSerializer):
             'objeto_agenda',
             'objetos_disciplinas',
         ]
+
+    from escolas.serializers.sala_serializer import SalaSerializer
+    objeto_sala = SalaSerializer(
+        many=False,
+        source='sala',
+        read_only=True,
+    )
     objeto_agenda = AgendaEscolarSerializer(
         many=False,
         source='turma_agenda',
