@@ -12,7 +12,6 @@ class BoletimSerializer(serializers.ModelSerializer):
         model = Boletim
         fields = [
             'id',
-            'ano',
             'aluno',
             'status',
             'encerrar',
