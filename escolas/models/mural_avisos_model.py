@@ -14,6 +14,9 @@ class MuralAvisos(models.Model):
         related_name='escola_murais',
     )
 
+    def __str__(self):
+        return f'Mural de avisos da {self.escola} em {self.ano}'
+
     class Meta:
         verbose_name = 'mural de avisos'
         verbose_name_plural = 'Murais de avisos'
