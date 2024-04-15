@@ -5,9 +5,7 @@ from escolas.models.escola_model import Escola
 
 
 class MuralAvisos(models.Model):
-    ano = YearField(
-        unique=True,
-    )
+    ano = YearField()
     escola = models.ForeignKey(
         Escola,
         on_delete=models.CASCADE,
@@ -20,3 +18,4 @@ class MuralAvisos(models.Model):
     class Meta:
         verbose_name = 'mural de avisos'
         verbose_name_plural = 'Murais de avisos'
+        unique_together = ['ano', 'escola', ]

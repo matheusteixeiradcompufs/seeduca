@@ -20,6 +20,16 @@ class Pessoa(models.Model):
         null=True,
         blank=True,
     )
+    uid = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+    )
+    token = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+    )
     criado_em = models.DateTimeField(
         auto_now_add=True,
     )

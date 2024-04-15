@@ -43,7 +43,7 @@ class AgendaRecadosInline(admin.TabularInline):
 @admin.register(Aluno)
 class AlunoAdmin(admin.ModelAdmin):
     list_display = ('id', '__str__', )
-    inlines = [TelefonePessoaInline, EmailPessoaInline, BoletimInline, AgendaRecadosInline]
+    inlines = [TelefonePessoaInline, EmailPessoaInline, BoletimInline]
 
 
 class AvaliacaoInline(admin.TabularInline):
@@ -61,9 +61,14 @@ class SituacaoInline(admin.TabularInline):
     extra = 0
 
 
+class FrequenciaInline(admin.TabularInline):
+    model = Frequencia
+    extra = 0
+
+
 @admin.register(Boletim)
 class BoletimAdmin(admin.ModelAdmin):
-    inlines = [AvaliacaoInline, MediaInline, SituacaoInline]
+    inlines = [FrequenciaInline, AvaliacaoInline, MediaInline, SituacaoInline, AgendaRecadosInline]
 
 
 class DiaLetivoInline(admin.TabularInline):

@@ -9,5 +9,5 @@ class AvaliacaoViewSet(viewsets.ModelViewSet):
     queryset = Avaliacao.objects.all()
     serializer_class = AvaliacaoSerializer
     permission_classes = [
-        # ProfessorUpdatePermission,
+        ProfessorUpdatePermission,
     ]

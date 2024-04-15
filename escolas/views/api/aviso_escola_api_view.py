@@ -9,5 +9,5 @@ class AvisoEscolaViewSet(viewsets.ModelViewSet):
     queryset = AvisoEscola.objects.all()
     serializer_class = AvisoEscolaSerializer
     permission_classes = [
-        # CoordenadorFullPermission,
+        CoordenadorFullPermission,
     ]

@@ -9,5 +9,5 @@ class TarefaViewSet(viewsets.ModelViewSet):
     queryset = Tarefa.objects.all()
     serializer_class = TarefaSerializer
     permission_classes = [
-        # ProfessorCreateUpdatePermission,
+        ProfessorCreateUpdatePermission,
     ]

@@ -5,14 +5,19 @@ from pessoas.models.aluno_model import Aluno
 
 
 class Transporte(models.Model):
+    TIPO_TRANSPORTE_CHOICES = [
+        ('C', 'CARRO'),
+        ('O', 'ÔNIBUS'),
+        ('V', 'VAN'),
+        ('X', 'OUTROS'),
+    ]
     placa = models.CharField(
         max_length=7,
     )
     ano = YearField()
     tipo = models.CharField(
         max_length=20,
-        blank=True,
-        null=True,
+        choices=TIPO_TRANSPORTE_CHOICES,
         verbose_name='tipo do veículo',
     )
     nomeMotorista = models.CharField(
@@ -37,7 +42,7 @@ class Transporte(models.Model):
     atualizado_em = models.DateTimeField(
         auto_now=True,
     )
-    aluno = models.ManyToManyField(
+    alunos = models.ManyToManyField(
         Aluno,
         blank=True,
         related_name='alunos_transportes',

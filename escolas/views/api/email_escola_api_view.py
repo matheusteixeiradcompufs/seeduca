@@ -9,5 +9,5 @@ class EmailEscolaViewSet(viewsets.ModelViewSet):
     queryset = EmailEscola.objects.all()
     serializer_class = EmailEscolaSerializer
     permission_classes = [
-        # DiretorEscolaPermission,
+        DiretorEscolaPermission,
     ]

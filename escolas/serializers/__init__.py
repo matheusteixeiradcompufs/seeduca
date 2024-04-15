@@ -12,3 +12,4 @@ from .sala_serializer import SalaSerializer
 from .tarefa_serializer import TarefaSerializer
 from .telefone_escola_serializer import TelefoneEscolaSerializer
 from .turma_serializer import TurmaSerializer
+from .turma_sem_boletim_serializer import TurmaSemBoletimSerializer

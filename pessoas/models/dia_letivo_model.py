@@ -42,3 +42,21 @@ class DiaLetivo(models.Model):
         # Atualiza o percentual no modelo Frequencia
         self.frequencia.percentual = percentual
         self.frequencia.save()
+
+    def delete(self, *args, **kwargs):
+        # Antes de excluir o objeto, atualize o percentual de frequência
+        super().delete(*args, **kwargs)
+
+        # Obtém a frequência associada ao dia letivo
+        frequencia = self.frequencia
+
+        # Calcula o novo percentual de frequência do aluno
+        total_dias_letivos = frequencia.frequencia_diasletivos.count()
+        presenca_true_count = frequencia.frequencia_diasletivos.filter(presenca=True).count()
+
+        # Evita a divisão por zero
+        percentual = (presenca_true_count / total_dias_letivos) * 100 if total_dias_letivos > 0 else 0
+
+        # Atualiza o percentual no modelo Frequencia
+        frequencia.percentual = percentual
+        frequencia.save()

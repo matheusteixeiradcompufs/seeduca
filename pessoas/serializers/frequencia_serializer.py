@@ -10,6 +10,7 @@ class FrequenciaSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'percentual',
+            'boletim',
             'objetos_diasletivos',
         ]
     objetos_diasletivos = DiaLetivoSerializer(

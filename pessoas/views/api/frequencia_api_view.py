@@ -9,5 +9,5 @@ class FrequenciaViewSet(viewsets.ModelViewSet):
     queryset = Frequencia.objects.all()
     serializer_class = FrequenciaSerializer
     permission_classes = [
-        # CoordenadorFullPermission,
+        CoordenadorFullPermission,
     ]

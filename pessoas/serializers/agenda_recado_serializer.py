@@ -9,8 +9,7 @@ class AgendaRecadosSerializer(serializers.ModelSerializer):
         model = AgendaRecados
         fields = [
             'id',
-            'ano',
-            'aluno',
+            'boletim',
             'objetos_recados',
         ]
 

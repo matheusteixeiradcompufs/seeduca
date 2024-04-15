@@ -9,5 +9,5 @@ class ResponsavelViewSet(viewsets.ModelViewSet):
     queryset = Responsavel.objects.all()
     serializer_class = ResponsavelSerializer
     permission_classes = [
-        # CoordenadorFullPermission,
+        CoordenadorFullPermission,
     ]

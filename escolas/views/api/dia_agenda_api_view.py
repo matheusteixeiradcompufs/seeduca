@@ -9,5 +9,5 @@ class DiaAgendaViewSet(viewsets.ModelViewSet):
     queryset = DiaAgenda.objects.all()
     serializer_class = DiaAgendaSerializer
     permission_classes = [
-        # CoordenadorFullPermission,
+        CoordenadorFullPermission,
     ]

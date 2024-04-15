@@ -9,5 +9,5 @@ class DiaLetivoViewSet(viewsets.ModelViewSet):
     queryset = DiaLetivo.objects.all()
     serializer_class = DiaLetivoSerializer
     permission_classes = [
-        # ProfessorCreateUpdatePermission,
+        ProfessorCreateUpdatePermission,
     ]

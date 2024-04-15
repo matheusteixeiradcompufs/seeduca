@@ -1,10 +1,10 @@
 from rest_framework import serializers
 
 from escolas.models import Sala
-from escolas.serializers.turma_serializer import TurmaSerializer
+from escolas.serializers.escola_sem_sala_serializer import EscolaSemSalaSerializer
 
 
-class SalaSerializer(serializers.ModelSerializer):
+class Sala_Sem_Turma_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Sala
         fields = [
@@ -14,11 +14,11 @@ class SalaSerializer(serializers.ModelSerializer):
             'escola',
             'criado_em',
             'atualizado_em',
-            'objetos_turmas',
+            'objeto_escola',
         ]
 
-    objetos_turmas = TurmaSerializer(
-        many=True,
-        source='sala_turmas',
+    objeto_escola = EscolaSemSalaSerializer(
+        many=False,
+        source='escola',
         read_only=True,
     )

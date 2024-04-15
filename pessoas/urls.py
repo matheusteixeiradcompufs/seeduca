@@ -44,6 +44,21 @@ pessoas_api_v1_router.register(
     basename='aluno-boletim-media-api',
 )
 pessoas_api_v1_router.register(
+    'aluno/boletim/situacao/api/v1',
+    views.SituacaoViewSet,
+    basename='aluno-boletim-situacao-api',
+)
+pessoas_api_v1_router.register(
+    'aluno/boletim/agenda/api/v1',
+    views.AgendaRecadosViewSet,
+    basename='aluno-agenda-api',
+)
+pessoas_api_v1_router.register(
+    'aluno/boletim/agenda/recado/api/v1',
+    views.RecadoViewSet,
+    basename='aluno-agenda-recado-api',
+)
+pessoas_api_v1_router.register(
     'aluno/frequencia/api/v1',
     views.FrequenciaViewSet,
     basename='aluno-frequencia-api',
@@ -54,24 +69,14 @@ pessoas_api_v1_router.register(
     basename='aluno-frequencia-dialetivo-api',
 )
 pessoas_api_v1_router.register(
-    'aluno/transporte/api/v1',
+    'transporte/api/v1',
     views.TransporteViewSet,
-    basename='aluno-transporte-api',
+    basename='transporte-api',
 )
 pessoas_api_v1_router.register(
-    'aluno/transporte/telefone/api/v1',
+    'transporte/telefone/api/v1',
     views.TelefoneTransporteViewSet,
-    basename='aluno-transporte-telefone-api',
-)
-pessoas_api_v1_router.register(
-    'aluno/agenda/api/v1',
-    views.AgendaRecadosViewSet,
-    basename='aluno-agenda-api',
-)
-pessoas_api_v1_router.register(
-    'aluno/agenda/recado/api/v1',
-    views.RecadoViewSet,
-    basename='aluno-agenda-recado-api',
+    basename='transporte-telefone-api',
 )
 
 pessoas_api_v1_router.register(
@@ -93,5 +98,9 @@ pessoas_api_v1_router.register(
 
 urlpatterns = [
     path('', include(pessoas_api_v1_router.urls)),
-    path('me/', GetMe.as_view(), name='get_me'),
+    path('me/', views.GetMe.as_view(), name='get_me'),
+    path('me/aluno/', views.GetMeAluno.as_view(), name='get_me_aluno'),
+    path('reset-password/', views.ResetPasswordAPIView.as_view(), name='reset_password_request'),
+    path('decode-token/', views.DecodeTokenAPIView.as_view(), name='decode_token'),
+    path('agendasdisciplinas/', views.AgendaDisciplinas.as_view(), name='agendas_disciplinas'),
 ]

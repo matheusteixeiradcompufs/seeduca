@@ -4,14 +4,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from pessoas.models import Aluno, Funcionario
-from pessoas.permissions import IsAluno
-from pessoas.serializers import AlunoSerializer, FuncionarioSerializer, UsuarioSerializer
+from pessoas.models import Aluno
+from pessoas.permissions import IsAluno, GetPermission
+from pessoas.serializers import AlunoSerializer, UsuarioSerializer
 
 
-class GetMe(APIView):
+class GetMeAluno(APIView):
     permission_classes = [
-        # IsAluno,
+        IsAluno, GetPermission,
     ]
 
     def post(self, request, *args, **kwargs):
@@ -27,8 +27,8 @@ class GetMe(APIView):
         if usuario.is_superuser:
             serializer = UsuarioSerializer(usuario)
         else:
-            funcionario = get_object_or_404(Funcionario, usuario__username=username)
-            if funcionario:
-                serializer = FuncionarioSerializer(funcionario)
+            aluno = get_object_or_404(Aluno, usuario__username=username)
+            if aluno:
+                serializer = AlunoSerializer(aluno)
 
         return Response(serializer.data, status=status.HTTP_200_OK)

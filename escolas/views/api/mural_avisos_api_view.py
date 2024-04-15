@@ -9,5 +9,5 @@ class MuralAvisosViewSet(viewsets.ModelViewSet):
     queryset = MuralAvisos.objects.all()
     serializer_class = MuralAvisosSerializer
     permission_classes = [
-        # CoordenadorFullPermission
+        CoordenadorFullPermission
     ]

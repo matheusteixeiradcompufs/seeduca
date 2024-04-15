@@ -9,5 +9,5 @@ class AvisoViewSet(viewsets.ModelViewSet):
     queryset = Aviso.objects.all()
     serializer_class = AvisoSerializer
     permission_classes = [
-        # ProfessorCreateUpdatePermission,
+        ProfessorCreateUpdatePermission,
     ]

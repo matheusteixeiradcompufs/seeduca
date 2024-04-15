@@ -9,5 +9,5 @@ class TransporteViewSet(viewsets.ModelViewSet):
     queryset = Transporte.objects.all()
     serializer_class = TransporteSerializer
     permission_classes = [
-        # CoordenadorFullPermission,
+        CoordenadorFullPermission,
     ]

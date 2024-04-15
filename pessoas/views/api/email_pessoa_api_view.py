@@ -9,5 +9,5 @@ class EmailPessoaViewSet(viewsets.ModelViewSet):
     queryset = EmailPessoa.objects.all()
     serializer_class = EmailPessoaSerializer
     permission_classes = [
-        # CoordenadorFullPermission,
+        CoordenadorFullPermission,
     ]

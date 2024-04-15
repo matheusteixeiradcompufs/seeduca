@@ -1,19 +1,17 @@
 from django.db import models
 
-from escolas.models import YearField
-from pessoas.models.aluno_model import Aluno
+from pessoas.models.boletim_model import Boletim
 
 
 class AgendaRecados(models.Model):
-    ano = YearField()
-    aluno = models.ForeignKey(
-        Aluno,
+    boletim = models.OneToOneField(
+        Boletim,
         on_delete=models.CASCADE,
-        related_name='aluno_agendas',
+        related_name='boletim_agendas',
     )
 
     def __str__(self):
-        return f'Agenda de Recados de {self.ano}'
+        return f'Agenda de Recados de {self.boletim.turma.ano}'
 
     class Meta:
         verbose_name = 'agenda de recados'
