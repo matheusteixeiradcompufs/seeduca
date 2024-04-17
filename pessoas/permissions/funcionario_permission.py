@@ -67,8 +67,11 @@ class IsFuncionario(IsAuthenticated):
     def has_permission(self, request, view):
         user = request.user
 
-        funcionario = Funcionario.objects.get(usuario=user)
+        if user.is_superuser:
+            return True
+        else:
+            funcionario = Funcionario.objects.get(usuario=user)
 
-        username = request.data.get('username')
+            username = request.data.get('username')
 
-        return funcionario is not None and str(funcionario) == username
+            return funcionario is not None and str(funcionario) == username

@@ -2,13 +2,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from pessoas.permissions import CoordenadorFullPermission
+from pessoas.permissions import ProfessorCreateUpdatePermission
 from pessoas.serializers import AgendaDisciplinasSerializer
 
 
 class AgendaDisciplinas(APIView):
     permission_classes = [
-        CoordenadorFullPermission,
+        ProfessorCreateUpdatePermission,
     ]
 
     def post(self, request, *args, **kwargs):

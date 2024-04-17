@@ -5,13 +5,13 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from pessoas.models import Funcionario
-from pessoas.permissions import IsFuncionario, GetPermission
+from pessoas.permissions import IsFuncionario
 from pessoas.serializers import FuncionarioSerializer, UsuarioSerializer
 
 
 class GetMe(APIView):
     permission_classes = [
-        IsFuncionario, GetPermission,
+        IsFuncionario,
     ]
 
     def post(self, request, *args, **kwargs):

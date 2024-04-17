@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-# from escolas.serializers import TurmaSerializer
+from escolas.serializers import TurmaSerializer
 from pessoas.models import Funcionario
 from pessoas.serializers.telefone_pessoa_serializer import TelefonePessoaSerializer
 from pessoas.serializers.email_pessoa_serializer import EmailPessoaSerializer
@@ -27,7 +27,7 @@ class FuncionarioSerializer(serializers.ModelSerializer):
             'objeto_usuario',
             'objetos_telefones',
             'objetos_emails',
-            # 'objetos_turmas',
+            'objetos_turmas',
         ]
 
     objeto_usuario = UsuarioSerializer(
@@ -45,8 +45,8 @@ class FuncionarioSerializer(serializers.ModelSerializer):
         source='pessoa_emails',
         read_only=True,
     )
-    # objetos_turmas = TurmaSerializer(
-    #     many=True,
-    #     source='turmas',
-    #     read_only=True,
-    # )
+    objetos_turmas = TurmaSerializer(
+        many=True,
+        source='turmas',
+        read_only=True,
+    )

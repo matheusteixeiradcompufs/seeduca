@@ -52,6 +52,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
-        # Hash da senha antes de salvar o usuário
-        validated_data['password'] = make_password(validated_data['password'])
+        # Verifique se 'password' está presente em validated_data e não é vazio
+        if 'password' in validated_data:
+            validated_data['password'] = make_password(validated_data['password'])
         return super().update(instance, validated_data)

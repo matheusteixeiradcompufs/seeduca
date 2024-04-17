@@ -2,7 +2,7 @@ from rest_framework import viewsets
 
 from escolas.models import Turma
 from escolas.serializers import TurmaSerializer
-from pessoas.permissions import CoordenadorFullPermission
+from pessoas.permissions import CoordenadorFullPermission, DiretorEscolaPermission
 
 
 class TurmaViewSet(viewsets.ModelViewSet):

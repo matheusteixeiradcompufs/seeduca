@@ -41,4 +41,4 @@ class Turma(models.Model):
         return f'{str(self.nome)} em {self.ano}'
 
     class Meta:
-        unique_together = ['nome', 'ano', 'turno']
+        unique_together = ['nome', 'ano', 'turno', 'sala', ]
