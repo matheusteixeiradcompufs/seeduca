@@ -19,8 +19,8 @@ class EscolaSemSalaSerializer(serializers.ModelSerializer):
             'criado_em',
             'atualizado_em',
             'imagem',
-            'escola_telefones',
-            'escola_emails',
+            'objetos_telefones',
+            'objetos_emails',
         ]
     objetos_telefones = TelefoneEscolaSerializer(
         many=True,
