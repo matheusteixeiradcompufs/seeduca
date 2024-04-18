@@ -4,7 +4,7 @@ from escolas.models import Sala
 from escolas.serializers.escola_sem_sala_serializer import EscolaSemSalaSerializer
 
 
-class Sala_Sem_Turma_Serializer(serializers.ModelSerializer):
+class SalaSemTurmaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sala
         fields = [

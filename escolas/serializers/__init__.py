@@ -9,6 +9,7 @@ from .escola_serializer import EscolaSerializer
 from .item_cardapio_serializer import ItemCardapioMerendaSerializer
 from .mural_avisos_serializer import MuralAvisosSerializer
 from .sala_serializer import SalaSerializer
+from .sala_sem_turma_serializer import SalaSemTurmaSerializer
 from .tarefa_serializer import TarefaSerializer
 from .telefone_escola_serializer import TelefoneEscolaSerializer
 from .turma_serializer import TurmaSerializer
