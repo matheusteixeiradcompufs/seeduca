@@ -17,6 +17,7 @@ class BoletimSerializer(serializers.ModelSerializer):
             'aluno',
             'status',
             'encerrar',
+            'qr_code',
             'turma',
             'objeto_turma',
             'objeto_frequencia',
