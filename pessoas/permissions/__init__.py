@@ -1,4 +1,5 @@
 from .aluno_permission import AlunoPermission, IsAluno, GetPermission
+from .aluno_get_coordenador_full_permission import AlunoGetCoordenadorFullPermission
 from .coordenador_full_permission import CoordenadorFullPermission
 from .funcionario_permission import FuncionarioPermission, IsFuncionario
 from .professor_create_update_permission import ProfessorCreateUpdatePermission
