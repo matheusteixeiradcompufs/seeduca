@@ -6,7 +6,8 @@ from rest_framework import status
 
 from pessoas.models import Aluno
 from pessoas.permissions import IsAluno
-from pessoas.serializers import AlunoSerializer, UsuarioSerializer
+from pessoas.serializers import UsuarioSerializer
+from pessoas.serializers.app.app_aluno_serializer import AppAlunoSerializer
 
 
 class GetMeAluno(APIView):
@@ -29,6 +30,6 @@ class GetMeAluno(APIView):
         else:
             aluno = get_object_or_404(Aluno, usuario__username=username)
             if aluno:
-                serializer = AlunoSerializer(aluno)
+                serializer = AppAlunoSerializer(aluno)
 
         return Response(serializer.data, status=status.HTTP_200_OK)

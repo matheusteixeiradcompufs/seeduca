@@ -4,7 +4,7 @@ from escolas.models import Escola
 from escolas.serializers.mural_avisos_serializer import MuralAvisosSerializer
 from escolas.serializers.cardapio_serializer import CardapioMerendaSerializer
 from escolas.serializers.email_escola_serializer import EmailEscolaSerializer
-from escolas.serializers.sala_serializer import SalaSerializer
+from escolas.serializers.sala_sem_objetos_serializer import SalaSemObjetosSerializer
 from escolas.serializers.telefone_escola_serializer import TelefoneEscolaSerializer
 
 
@@ -38,7 +38,7 @@ class EscolaSerializer(serializers.ModelSerializer):
         source='escola_emails',
         read_only=True,
     )
-    objetos_salas = SalaSerializer(
+    objetos_salas = SalaSemObjetosSerializer(
         many=True,
         source='escola_salas',
         read_only=True,

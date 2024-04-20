@@ -1,16 +1,15 @@
 from rest_framework import serializers
 
-from escolas.serializers.turma_sem_objetos_serializer import TurmaSemObjetosSerializer
+from escolas.serializers.app.app_turma_serializer import AppTurmaSerializer
 from pessoas.models import Boletim
-from pessoas.serializers.agenda_recado_serializer import AgendaRecadosSerializer
+from pessoas.serializers.app.app_agenda_recado_serializer import AppAgendaRecadosSerializer
 from pessoas.serializers.frequencia_serializer import FrequenciaSerializer
 from pessoas.serializers.avaliacao_serializer import AvaliacaoSerializer
 from pessoas.serializers.media_serializer import MediaSerializer
-from escolas.serializers.turma_sem_boletim_serializer import TurmaSemBoletimSerializer
 from pessoas.serializers.situacao_serializer import SituacaoSerializer
 
 
-class BoletimSerializer(serializers.ModelSerializer):
+class AppBoletimSerializer(serializers.ModelSerializer):
     class Meta:
         model = Boletim
         fields = [
@@ -48,12 +47,12 @@ class BoletimSerializer(serializers.ModelSerializer):
         source='boletim_situacoes',
         read_only=True,
     )
-    objeto_agenda = AgendaRecadosSerializer(
+    objeto_agenda = AppAgendaRecadosSerializer(
         many=False,
         source='boletim_agendas',
         read_only=True,
     )
-    objeto_turma = TurmaSemObjetosSerializer(
+    objeto_turma = AppTurmaSerializer(
         many=False,
         source='turma',
         read_only=True,

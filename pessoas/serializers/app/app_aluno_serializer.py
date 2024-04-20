@@ -1,33 +1,35 @@
 from rest_framework import serializers
 
-from escolas.serializers import TurmaSerializer, TurmaSemObjetosSerializer
-from pessoas.models import Funcionario
+from pessoas.models import Aluno
+from pessoas.serializers.app.app_boletim_serializer import AppBoletimSerializer
 from pessoas.serializers.telefone_pessoa_serializer import TelefonePessoaSerializer
 from pessoas.serializers.email_pessoa_serializer import EmailPessoaSerializer
+from pessoas.serializers.responsavel_serializer import ResponsavelSerializer
+from pessoas.serializers.transporte_serializer import TransporteSerializer
 from pessoas.serializers.usuario_serializer import UsuarioSerializer
 
 
-class FuncionarioSerializer(serializers.ModelSerializer):
+class AppAlunoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Funcionario
+        model = Aluno
         fields = [
             'id',
             'matricula',
             'cpf',
             'data_nascimento',
-            'endereco',
             'usuario',
+            'endereco',
             'criado_em',
             'atualizado_em',
-            'formacao',
+            'eh_pcd',
+            'descricao_pcd',
             'retrato',
-            'turmas',
-            'uid',
-            'token',
             'objeto_usuario',
             'objetos_telefones',
             'objetos_emails',
-            'objetos_turmas',
+            'objetos_responsaveis',
+            'objetos_boletins',
+            'objetos_transportes',
         ]
 
     objeto_usuario = UsuarioSerializer(
@@ -45,8 +47,18 @@ class FuncionarioSerializer(serializers.ModelSerializer):
         source='pessoa_emails',
         read_only=True,
     )
-    objetos_turmas = TurmaSemObjetosSerializer(
+    objetos_responsaveis = ResponsavelSerializer(
         many=True,
-        source='turmas',
+        source='aluno_responsaveis',
+        read_only=True,
+    )
+    objetos_boletins = AppBoletimSerializer(
+        many=True,
+        source='aluno_boletins',
+        read_only=True,
+    )
+    objetos_transportes = TransporteSerializer(
+        many=True,
+        source='alunos_transportes',
         read_only=True,
     )

@@ -3,6 +3,7 @@ from .agenda_disciplinas_serializer import AgendaDisciplinasSerializer
 from .aluno_serializer import AlunoSerializer
 from .avaliacao_serializer import AvaliacaoSerializer
 from .boletim_serializer import BoletimSerializer
+from .boletim_sem_objetos_serializer import BoletimSemObjetosSerializer
 from .boletim_sem_turma_serializer import BoletimSemTurmaSerializer
 from .dia_letivo_serializer import DiaLetivoSerializer
 from .email_pessoa_serializer import EmailPessoaSerializer
