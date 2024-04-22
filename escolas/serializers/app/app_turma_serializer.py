@@ -2,7 +2,6 @@ from rest_framework import serializers
 
 from escolas.models import Turma
 from escolas.serializers import SalaSemTurmaSerializer
-from escolas.serializers.agenda_escola_serializer import AgendaEscolarSerializer
 from escolas.serializers.app.app_agenda_escola_serializer import AppAgendaEscolarSerializer
 from escolas.serializers.disciplina_serializer import DisciplinaSerializer
 
