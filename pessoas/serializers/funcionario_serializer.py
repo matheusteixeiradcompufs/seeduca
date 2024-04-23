@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from escolas.serializers import TurmaSerializer, TurmaSemObjetosSerializer
+from escolas.serializers.turma_sem_objetos_serializer import TurmaSemObjetosSerializer
 from pessoas.models import Funcionario
 from pessoas.serializers.telefone_pessoa_serializer import TelefonePessoaSerializer
 from pessoas.serializers.email_pessoa_serializer import EmailPessoaSerializer

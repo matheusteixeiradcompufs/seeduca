@@ -76,13 +76,23 @@ WSGI_APPLICATION = 'appseeduca.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'seeduca',
+        'USER': os.environ.get('MARIADB_USER'),
+        'PASSWORD': os.environ.get('MARIADB_PASSWORD'),
+        'HOST': os.environ.get('MARIADB_HOST'),  # Ou o endereço IP do seu servidor MariaDB
+        'PORT': '3306',       # Porta padrão do MariaDB
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -190,6 +200,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.zoho.com'
 EMAIL_PORT = 587  # Porta para TLS
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'app.seeduca@zohomail.com'  # Seu endereço de e-mail
-EMAIL_HOST_PASSWORD = 'Seeduc@2024'  # Sua senha de e-mail
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')  # Seu endereço de e-mail
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')  # Sua senha de e-mail
 
