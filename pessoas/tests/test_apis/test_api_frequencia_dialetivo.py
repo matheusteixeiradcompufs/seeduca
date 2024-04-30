@@ -1,4 +1,5 @@
-from pessoas.models import DiaLetivo, Frequencia
+from escolas.models import Disciplina, Sala, Turma
+from pessoas.models import DiaLetivo, Frequencia, Boletim
 from pessoas.tests.test_apis.test_api_base import PessoasAPITestBase
 
 
@@ -9,23 +10,40 @@ class DiaLetivoAPITest(PessoasAPITestBase):
         self.basenamelist = 'pessoas:aluno-frequencia-dialetivo-api-list'
         self.basenamedetail = 'pessoas:aluno-frequencia-dialetivo-api-detail'
 
-        frequencia = Frequencia.objects.create(
-            ano=2000,
-            aluno=self.aluno
+        disciplina = Disciplina.objects.create(
+            nome='Teste'
         )
+        sala = Sala.objects.create(
+            numero=0,
+            escola=self.make_escola(
+                cnpj='77777777777777'
+            )
+        )
+        turma = Turma.objects.create(
+            nome='Turma Teste',
+            ano=2023,
+            turno='M',
+            sala=sala
+        )
+        turma.disciplinas.add(disciplina)
+        boletim = Boletim.objects.create(
+            turma=turma,
+            aluno=self.aluno,
+        )
+        frequencia = boletim.boletim_frequencia
 
         self.data_instance = {
-            'data': '2023-12-30',
+            'data': '2023-12-29',
             'frequencia': frequencia,
         }
 
         self.data_instance2 = {
-            'data': '2023-12-31',
+            'data': '2023-12-30',
             'frequencia': frequencia.id,
         }
 
         self.data_instance_update = {
-            'ano': '2024-01-02',
+            'ano': '2023-12-31',
         }
 
         self.instance = DiaLetivo.objects.create(**self.data_instance)

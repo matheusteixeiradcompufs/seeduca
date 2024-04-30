@@ -1,5 +1,5 @@
 from escolas.models import TelefoneEscola, EmailEscola, Disciplina, Sala, Turma, AgendaEscolar, DiaAgenda, Aviso, \
-    Tarefa, ItemCardapioMerenda, CardapioMerenda, Email, Telefone
+    Tarefa, ItemCardapioMerenda, CardapioMerenda, Email, Telefone, MuralAvisos, AvisoEscola
 from escolas.tests.test_base_escola import EscolaTestBase
 
 
@@ -71,7 +71,7 @@ class EscolaModelTestCase(EscolaTestBase):
             turno=turno,
             sala=sala
         )
-        self.assertEqual(str(turma), nome)
+        self.assertEqual(str(turma), f'{nome} em {ano}')
 
     def test_if_instance_agenda_escolar_returns_turma_in_str(self):
         nome = 'Turma Teste'
@@ -90,7 +90,7 @@ class EscolaModelTestCase(EscolaTestBase):
         agenda = AgendaEscolar.objects.create(
             turma=turma
         )
-        self.assertEqual(str(agenda), 'Agenda do Turma Teste')
+        self.assertEqual(str(agenda), 'Agenda do Turma Teste em 2000')
 
     def test_if_instance_dia_agenda_escolar_returns_data_in_str(self):
         nome = 'Turma Teste'
@@ -109,7 +109,8 @@ class EscolaModelTestCase(EscolaTestBase):
         agenda = AgendaEscolar.objects.create(
             turma=turma
         )
-        dia = DiaAgenda.objects.create(
+        print(DiaAgenda.objects.all())
+        dia = DiaAgenda.objects.get(
             data='2000-01-01',
             agenda=agenda,
         )
@@ -132,8 +133,8 @@ class EscolaModelTestCase(EscolaTestBase):
         agenda = AgendaEscolar.objects.create(
             turma=turma
         )
-        dia = DiaAgenda.objects.create(
-            data='2000-01-01',
+        dia = DiaAgenda.objects.get(
+            data='2000-01-02',
             agenda=agenda,
         )
         aviso = Aviso.objects.create(
@@ -160,8 +161,8 @@ class EscolaModelTestCase(EscolaTestBase):
         agenda = AgendaEscolar.objects.create(
             turma=turma
         )
-        dia = DiaAgenda.objects.create(
-            data='2000-01-01',
+        dia = DiaAgenda.objects.get(
+            data='2000-01-03',
             agenda=agenda,
         )
         tarefa = Tarefa.objects.create(
@@ -181,11 +182,32 @@ class EscolaModelTestCase(EscolaTestBase):
         self.assertEqual(str(item), nome)
 
     def test_if_instance_cardapio_returns_data_and_turno_in_str(self):
-        data = '2000-01-01'
+        data = '2000-01-04'
         turno = 'teste'
         cardapio = CardapioMerenda.objects.create(
             data=data,
             turno=turno,
             escola=self.escola,
         )
-        self.assertEqual(str(cardapio), 'Cardápio de 2000-01-01 do turno teste')
+        self.assertEqual(str(cardapio), 'Cardápio de 2000-01-04 do turno teste')
+
+    def test_if_instance_mural_returns_escola_and_ano_in_str(self):
+        ano = 2023
+        mural = MuralAvisos.objects.create(
+            ano=ano,
+            escola=self.escola,
+        )
+        self.assertEqual(str(mural), f'Mural de avisos da {mural.escola} em {mural.ano}')
+
+    def test_if_instance_aviso_mural_returns_tituloin_str(self):
+        titulo = 'Título Teste'
+        texto = 'Texto teste'
+        aviso = AvisoEscola.objects.create(
+            titulo=titulo,
+            texto=texto,
+            mural=MuralAvisos.objects.create(
+                ano=2023,
+                escola=self.escola,
+            )
+        )
+        self.assertEqual(str(aviso), titulo)

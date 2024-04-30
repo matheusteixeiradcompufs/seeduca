@@ -13,7 +13,7 @@ class MediaAPITest(PessoasAPITestBase):
         self.basenamelist = 'pessoas:aluno-boletim-media-api-list'
         self.basenamedetail = 'pessoas:aluno-boletim-media-api-detail'
 
-        self.turma = Turma.objects.create(
+        turma = Turma.objects.create(
             nome='Turma Teste',
             ano=2000,
             turno='manha',
@@ -27,55 +27,19 @@ class MediaAPITest(PessoasAPITestBase):
         disciplina = Disciplina.objects.create(
             nome='Teste'
         )
-        self.turma.disciplinas.add(disciplina)
+        turma.disciplinas.add(disciplina)
         disciplina = Disciplina.objects.create(
             nome='Teste - 2'
         )
-        self.turma.disciplinas.add(disciplina)
-        self.aluno.turmas.add(self.turma)
+        turma.disciplinas.add(disciplina)
         self.boletim = Boletim.objects.create(
-            ano=2000,
+            turma=turma,
             aluno=self.aluno,
         )
-
-        # self.data_instance = {
-        #     'tipo': 'M1',
-        #     'valor': 0,
-        #     'boletim': boletim,
-        #     'disciplina': disciplina,
-        # }
-        #
-        # self.data_instance2 = {
-        #     'tipo': 'M2',
-        #     'valor': 0,
-        #     'boletim': boletim.id,
-        #     'disciplina': disciplina.id,
-        # }
-        #
-        # self.data_instance_update = {
-        #     'valor': 5,
-        # }
-        #
-        # self.instance = Media.objects.create(**self.data_instance)
         return supersetup
 
-    # def test_list_media_aluno(self):
-    #     self.list_base(self.basenamelist)
-    #
-    # def test_create_media_aluno(self):
-    #     self.create_base(self.data_instance2, self.basenamelist)
-    #
-    # def test_retrieve_media_aluno(self):
-    #     self.retrieve_base(self.instance.id, self.basenamedetail)
-    #
-    # def test_update_media_aluno(self):
-    #     self.update_base(self.instance.id, self.data_instance_update, self.basenamedetail)
-    #
-    # def test_destroy_media_aluno(self):
-    #     self.destroy_base(self.instance.id, self.basenamedetail)
-
     def test_if_create_boletim_create_medias_too(self):
-        disciplinas = self.aluno.turmas.filter(ano=2000).first().disciplinas.all()
+        disciplinas = self.boletim.turma.disciplinas.all()
         avaliacoes_teste = []
         for disciplina in disciplinas:
             for media in Media.TIPO_MEDIA_CHOICES:

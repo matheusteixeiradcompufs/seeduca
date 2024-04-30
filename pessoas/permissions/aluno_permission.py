@@ -21,14 +21,11 @@ class IsAluno(IsAuthenticated):
     def has_permission(self, request, view):
         user = request.user
 
-        aluno = Aluno.objects.get(usuario=user)
+        if user.is_superuser:
+            return False
+        else:
+            alunos = Aluno.objects.filter(usuario=user)
 
-        username = request.data.get('username')
+            return alunos.count() > 0
 
-        return aluno is not None and str(aluno) == username
-
-
-class GetPermission(IsAuthenticated):
-    def has_permission(self, request, view):
-        return request.method == 'GET'
 

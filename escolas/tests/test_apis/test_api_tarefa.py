@@ -12,6 +12,7 @@ class TarefaAPITest(PessoasAPITestBase):
         self.data_instance = {
             'nome': 'Teste',
             'descricao': 'Descrição Teste',
+            'tipo': 'E',
             'diaAgenda': DiaAgenda.objects.create(
                 data='2000-01-02',
                 agenda=AgendaEscolar.objects.create(
@@ -31,6 +32,7 @@ class TarefaAPITest(PessoasAPITestBase):
         self.data_instance2 = {
             'nome': 'Teste',
             'descricao': 'Descrição Teste',
+            'tipo': 'E',
             'diaAgenda': DiaAgenda.objects.create(
                 data='2000-01-03',
                 agenda=AgendaEscolar.objects.create(

@@ -36,5 +36,12 @@ class ResetPasswordAPIView(APIView):
                 [email],
                 fail_silently=False,
             )
-
-        return Response({'message': 'Se existir um usuário com este e-mail, as instruções de redefinição de senha foram enviadas.'}, status=status.HTTP_200_OK)
+            return Response(
+                {'message': 'As instruções de redefinição de senha foram enviadas.'},
+                status=status.HTTP_200_OK
+            )
+        else:
+            return Response(
+                {'message': 'Não existe um usuário com esse email.'},
+                status=status.HTTP_404_NOT_FOUND
+            )

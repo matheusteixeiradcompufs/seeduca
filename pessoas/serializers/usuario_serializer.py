@@ -55,4 +55,6 @@ class UsuarioSerializer(serializers.ModelSerializer):
         # Verifique se 'password' está presente em validated_data e não é vazio
         if 'password' in validated_data:
             validated_data['password'] = make_password(validated_data['password'])
+        else:
+            pass
         return super().update(instance, validated_data)

@@ -27,42 +27,37 @@ class ProfessorUpdatePermissionTest(PessoasAPITestBase):
         self.basenamedetail = 'pessoas:aluno-boletim-avaliacao-api-detail'
 
         turma = Turma.objects.create(
-            nome='Turma Teste',
-            ano=2000,
-            turno='manha',
+            nome='Teste',
+            ano=2023,
+            turno='T',
             sala=Sala.objects.create(
                 numero=0,
                 escola=self.make_escola(
-                    cnpj='77777777777777'
+                    cnpj='00000000000002'
                 )
             )
         )
         disciplina = Disciplina.objects.create(
             nome='Teste'
         )
-        turma.disciplinas.add(disciplina)
-        self.aluno.turmas.add(turma)
+        turma.disciplinas.set([disciplina.id])
         boletim = Boletim.objects.create(
-            ano=2000,
             aluno=self.aluno,
+            turma=turma,
         )
 
         self.data_instance = {
             'nome': 'A1',
-            'nota': 0,
             'aluno': self.aluno,
             'boletim': boletim,
             'disciplina': disciplina,
-            'turma': turma,
         }
 
         self.data_instance2 = {
             'nome': 'A2',
-            'nota': 0,
             'aluno': self.aluno.id,
             'boletim': boletim.id,
             'disciplina': disciplina.id,
-            'turma': turma.id,
         }
 
         self.data_instance_update = {

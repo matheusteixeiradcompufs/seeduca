@@ -11,18 +11,19 @@ class FuncionariosAPITest(PessoasAPITestBase):
         self.list_base(self.basenamelist)
 
     def test_create_funcionario(self):
+        funcionario = self.make_usuario(
+            first_name="FuncionarioTeste31",
+            last_name="SobrenomeTeste31",
+            email="teste31@email.com",
+            username="funcionarioteste31",
+            password="Abcd2341",
+            is_superuser=False,
+        )
+        funcionario.groups.set([self.grupo_coordenadores.id])
         data = {
             "matricula": "0000000031",
             "cpf": "55546595668",
-            "escola": 1,
-            "grupos_add": ["Coordenadores"],
-            "objeto_usuario": {
-                "first_name": "FuncionarioTeste31",
-                "last_name": "SobrenomeTeste31",
-                "email": "teste31@email.com",
-                "username": "funcionarioteste31",
-                "password": "Abcd2341"
-            }
+            "usuario": funcionario.id,
         }
         self.create_base(data, self.basenamelist)
 
@@ -31,15 +32,8 @@ class FuncionariosAPITest(PessoasAPITestBase):
 
     def test_update_funcionario(self):
         data = {
-            "matricula": "0000000031",
+            "matricula": "0000020032",
             "cpf": "55546595668",
-            "grupos_remove": ["Professores"],
-            "grupos_add": ["Coordenadores"],
-            "objeto_usuario": {
-                "first_name": "FuncionarioTeste31",
-                "last_name": "SobrenomeTeste31",
-                "email": "teste31@email.com",
-            }
         }
         self.update_base(self.funcionario.id, data, self.basenamedetail)
 

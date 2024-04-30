@@ -6,12 +6,13 @@ class TelefoneTransporteAPITest(PessoasAPITestBase):
     def setUp(self) -> None:
         supersetup = super(TelefoneTransporteAPITest, self).setUp()
 
-        self.basenamelist = 'pessoas:aluno-transporte-telefone-api-list'
-        self.basenamedetail = 'pessoas:aluno-transporte-telefone-api-detail'
+        self.basenamelist = 'pessoas:transporte-telefone-api-list'
+        self.basenamedetail = 'pessoas:transporte-telefone-api-detail'
 
         transporte = Transporte.objects.create(
             placa='CCC0000',
             ano=2000,
+            tipo='X',
         )
 
         self.data_instance = {

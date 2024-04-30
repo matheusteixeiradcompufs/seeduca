@@ -11,18 +11,18 @@ class CardapioAPITest(PessoasAPITestBase):
 
         self.data_instance = {
             'data': '2000-01-01',
-            'turno': 'teste',
+            'turno': 'M',
             'escola': self.escola,
         }
 
         self.data_instance2 = {
             'data': '2000-01-02',
-            'turno': 'teste',
+            'turno': 'T',
             'escola': self.escola.id,
         }
 
         self.data_instance_update = {
-            'turno': 'teste2',
+            'turno': 'N',
         }
 
         self.instance = CardapioMerenda.objects.create(**self.data_instance)

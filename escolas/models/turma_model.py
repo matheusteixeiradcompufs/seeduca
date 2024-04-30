@@ -11,7 +11,6 @@ class Turma(models.Model):
         ('T', 'Tarde'),
         ('N', 'Noite'),
     ]
-
     nome = models.CharField(
         max_length=100,
     )

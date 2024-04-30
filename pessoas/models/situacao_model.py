@@ -1,5 +1,5 @@
+from django.core.exceptions import ValidationError
 from django.db import models
-from rest_framework.exceptions import ValidationError
 
 from escolas.models import Disciplina
 from pessoas.models.boletim_model import Boletim

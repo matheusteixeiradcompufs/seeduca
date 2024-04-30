@@ -16,7 +16,7 @@ class AvaliacaoAPITest(PessoasAPITestBase):
         turma = Turma.objects.create(
             nome='Turma Teste',
             ano=2000,
-            turno='manha',
+            turno='M',
             sala=Sala.objects.create(
                 numero=0,
                 escola=self.make_escola(
@@ -25,9 +25,8 @@ class AvaliacaoAPITest(PessoasAPITestBase):
             )
         )
         turma.disciplinas.add(disciplina)
-        self.aluno.turmas.add(turma)
         boletim = Boletim.objects.create(
-            ano=2000,
+            turma=turma,
             aluno=self.aluno,
         )
 
@@ -36,7 +35,6 @@ class AvaliacaoAPITest(PessoasAPITestBase):
             'aluno': self.aluno,
             'boletim': boletim,
             'disciplina': disciplina,
-            'turma': turma,
         }
 
         self.data_instance2 = {
@@ -44,11 +42,9 @@ class AvaliacaoAPITest(PessoasAPITestBase):
             'aluno': self.aluno.id,
             'boletim': boletim.id,
             'disciplina': disciplina.id,
-            'turma': turma.id,
         }
-
         self.data_instance_update = {
-            'ano': 'Atualizado',
+            'disciplina': disciplina.id,
         }
 
         self.instance = Avaliacao.objects.create(**self.data_instance)

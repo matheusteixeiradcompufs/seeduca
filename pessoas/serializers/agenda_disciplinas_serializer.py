@@ -35,7 +35,6 @@ class AgendaDisciplinasSerializer(serializers.Serializer):
         qui = validated_data.pop('qui')
         sex = validated_data.pop('sex')
 
-        dias_semana = ['seg', 'ter', 'qua', 'qui', 'sex']
         disciplinas_por_dia = [seg, ter, qua, qui, sex]
 
         agenda = AgendaEscolar.objects.filter(pk=agenda_id).first()

@@ -24,12 +24,7 @@ class GetMeAluno(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        usuario = get_object_or_404(User, username=username)
-        if usuario.is_superuser:
-            serializer = UsuarioSerializer(usuario)
-        else:
-            aluno = get_object_or_404(Aluno, usuario__username=username)
-            if aluno:
-                serializer = AppAlunoSerializer(aluno)
+        aluno = get_object_or_404(Aluno, usuario__username=username)
+        serializer = AppAlunoSerializer(aluno)
 
         return Response(serializer.data, status=status.HTTP_200_OK)

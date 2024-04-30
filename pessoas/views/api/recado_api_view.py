@@ -2,7 +2,6 @@ from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 
 from pessoas.models import Recado
-from pessoas.permissions import AlunoPermission
 from pessoas.serializers import RecadoSerializer
 
 

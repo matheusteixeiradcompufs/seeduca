@@ -17,34 +17,33 @@ class BoletimAPITest(PessoasAPITestBase):
             numero=0,
             escola=escola
         )
+
         turma = Turma.objects.create(
-            nome='Teste',
+            nome='Teste1',
             ano=2023,
-            turno='teste',
+            turno='T',
             sala=sala
         )
-        self.aluno.turmas.add(turma)
 
         self.data_instance = {
-            'ano': 2023,
+            'turma': turma,
             'aluno': self.aluno,
         }
 
         turma = Turma.objects.create(
             nome='Teste2',
             ano=2024,
-            turno='teste',
+            turno='T',
             sala=sala
         )
-        self.aluno.turmas.add(turma)
 
         self.data_instance2 = {
-            'ano': 2024,
+            'turma': turma.id,
             'aluno': self.aluno.id,
         }
 
         self.data_instance_update = {
-            'ano': 2024,
+            'turma': turma.id,
         }
 
         self.instance = Boletim.objects.create(**self.data_instance)

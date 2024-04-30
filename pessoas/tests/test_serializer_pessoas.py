@@ -13,7 +13,6 @@ class SerializerPessoaTest(PessoasTestBase):
         data = {
             "matricula": "1000000001",
             "cpf": "10000000001",
-            "escola": self.escola.id,
             "objeto_usuario": {
                 "first_name": "PrimeiroNome",
                 "last_name": "Sobrenome",
@@ -32,9 +31,7 @@ class SerializerPessoaTest(PessoasTestBase):
     def test_if_update_usuario_returns_bad_request(self):
         url = reverse('pessoas:aluno-api-detail', kwargs={'pk': self.aluno.id})
         data = {
-            "objeto_usuario": {
-                "email": "emailteste.com"
-            }
+            "cpf": True,
         }
         response = self.client.patch(
             url,

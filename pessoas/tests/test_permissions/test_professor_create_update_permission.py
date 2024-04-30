@@ -1,7 +1,8 @@
 from django.urls import reverse
 from rest_framework import status
 
-from pessoas.models import Frequencia, DiaLetivo
+from escolas.models import Turma, Sala
+from pessoas.models import Frequencia, DiaLetivo, Boletim
 from pessoas.tests.test_apis.test_api_base import PessoasAPITestBase
 
 
@@ -24,9 +25,23 @@ class ProfessorCreateUpdateAPITest(PessoasAPITestBase):
         self.basenamelist = 'pessoas:aluno-frequencia-dialetivo-api-list'
         self.basenamedetail = 'pessoas:aluno-frequencia-dialetivo-api-detail'
 
-        frequencia = Frequencia.objects.create(
-            ano=2000,
-            aluno=self.aluno
+        turma = Turma.objects.create(
+            nome='Teste',
+            ano=2023,
+            turno='T',
+            sala=Sala.objects.create(
+                numero=0,
+                escola=self.make_escola(
+                    cnpj='00000000000002'
+                )
+            )
+        )
+        boletim = Boletim.objects.create(
+            aluno=self.aluno,
+            turma=turma,
+        )
+        frequencia = Frequencia.objects.get(
+            boletim=boletim.id,
         )
 
         self.data_instance = {
@@ -40,7 +55,7 @@ class ProfessorCreateUpdateAPITest(PessoasAPITestBase):
         }
 
         self.data_instance_update = {
-            'ano': '2024-01-02',
+            'ano': '2023-01-02',
         }
 
         self.instance = DiaLetivo.objects.create(**self.data_instance)

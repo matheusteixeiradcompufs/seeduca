@@ -96,7 +96,7 @@ class PessoaMixin(EscolaMixin):
             username='username',
             password='123456',
             email='username@email.com',
-            is_superuser=True,
+            is_superuser=False,
     ):
         return User.objects.create_user(
             first_name=first_name,
@@ -114,19 +114,15 @@ class PessoaMixin(EscolaMixin):
             data_nascimento='1990-01-01',
             endereco='Endereço Teste',
             usuario_data=None,
-            escola_data=None,
     ):
         if usuario_data is None:
             usuario_data = {}
-        if escola_data is None:
-            escola_data = {}
         return Aluno.objects.create(
             matricula=matricula,
             cpf=cpf,
             data_nascimento=data_nascimento,
             endereco=endereco,
-            usuario=self.make_usuario(**usuario_data),
-            escola=self.make_escola(**escola_data)
+            usuario=self.make_usuario(**usuario_data)
         )
 
     def make_funcionario(
@@ -137,12 +133,9 @@ class PessoaMixin(EscolaMixin):
             endereco='Endereço Teste',
             formacao='Formação Teste',
             usuario_data=None,
-            escola_data=None,
     ):
         if usuario_data is None:
             usuario_data = {}
-        if escola_data is None:
-            escola_data = {}
         return Funcionario.objects.create(
             matricula=matricula,
             cpf=cpf,
@@ -150,7 +143,6 @@ class PessoaMixin(EscolaMixin):
             endereco=endereco,
             formacao=formacao,
             usuario=self.make_usuario(**usuario_data),
-            escola=self.make_escola(**escola_data),
         )
 
     def get_auth_data(self, username='user', password='pass', is_superuser=True):
@@ -194,18 +186,12 @@ class PessoasTestBase(TestCase, PessoaMixin):
             'is_superuser': False
         }
 
-        escola = {
-            'cnpj': '00000000000001',
-            'nome': 'Nova Escola Teste',
-        }
-
-        self.grupo_professores = self.make_grupo('Professores')
-        self.grupo_coordenadores = self.make_grupo('Coordenadores')
-        self.grupo_diretores = self.make_grupo('Diretores')
+        self.grupo_diretores = self.make_grupo('Diretor')
+        self.grupo_coordenadores = self.make_grupo('Coordenador')
+        self.grupo_professores = self.make_grupo('Professor')
 
         self.funcionario = self.make_funcionario(
             usuario_data=usuario_funcionario,
-            escola_data=escola,
         )
 
         self.usuario = self.make_usuario(
@@ -220,102 +206,96 @@ class PessoasTestBase(TestCase, PessoaMixin):
         self.data_create_aluno = {
             "matricula": "0000000099",
             "cpf": "88888888993",
-            "escola": 1,
-            "objeto_usuario": {
-                "first_name": "PrimeiroNomeTeste99",
-                "last_name": "SobrenomeTeste99",
-                "email": "email99@teste.com",
-                "username": "usernameteste99",
-                "password": "Abcd2341"
-            }
+            "usuario": self.make_usuario(
+                first_name='PrimeiroNomeTeste99',
+                last_name='SobrenomeTeste99',
+                username='usernameteste99',
+                password='Abcd2341',
+                email='email99@teste.com',
+                is_superuser=False,
+            ).id
         }
 
         self.data_update_aluno = {
             "matricula": "0000000100",
             "cpf": "88888888994",
-            "objeto_usuario": {
-                "first_name": "PrimeiroNomeTeste100",
-                "last_name": "SobrenomeTeste100",
-                "email": "email100@teste.com",
-            }
         }
 
         self.data_create_funcionario = {
             "matricula": "0000000199",
             "cpf": "88888889993",
-            "escola": 1,
-            "objeto_usuario": {
-                "first_name": "PrimeiroNomeTeste199",
-                "last_name": "SobrenomeTeste199",
-                "email": "email199@teste.com",
-                "username": "usernameteste199",
-                "password": "Abcd2341"
-            }
+            "usuario": self.make_usuario(
+                first_name='PrimeiroNomeTeste1199',
+                last_name='SobrenomeTeste99',
+                username='usernameteste199',
+                password='Abcd2341',
+                email='email199@teste.com',
+                is_superuser=False,
+            ).id
         }
 
+        self.usuario_professor = self.make_usuario(
+            first_name='PrimeiroNomeTeste299',
+            last_name='SobrenomeTeste299',
+            username='usernameteste299',
+            password='Abcd2341',
+            email='email299@teste.com',
+            is_superuser=False,
+        )
+        self.usuario_professor.groups.add(self.grupo_professores)
         self.data_create_professor = {
             "matricula": "0000000299",
             "cpf": "88888899993",
-            "escola": 1,
-            "grupos_add": ["Professores"],
-            "objeto_usuario": {
-                "first_name": "PrimeiroNomeTeste299",
-                "last_name": "SobrenomeTeste299",
-                "email": "email299@teste.com",
-                "username": "usernameteste299",
-                "password": "Abcd2341"
-            }
+            "usuario": self.usuario_professor.id
         }
 
+        self.usuario_coordenador = self.make_usuario(
+            first_name='PrimeiroNomeTeste499',
+            last_name='SobrenomeTeste499',
+            username='usernameteste499',
+            password='Abcd2341',
+            email='email499@teste.com',
+            is_superuser=False,
+        )
+        self.usuario_coordenador.groups.add(self.grupo_coordenadores)
         self.data_create_coordenador = {
             "matricula": "0000000499",
             "cpf": "88888899994",
-            "escola": 1,
-            "grupos_add": ["Coordenadores"],
-            "objeto_usuario": {
-                "first_name": "PrimeiroNomeTeste499",
-                "last_name": "SobrenomeTeste499",
-                "email": "email499@teste.com",
-                "username": "usernameteste499",
-                "password": "Abcd2341"
-            }
+            "usuario": self.usuario_coordenador.id
         }
 
+        self.usuario_diretor = self.make_usuario(
+            first_name='PrimeiroNomeTeste599',
+            last_name='SobrenomeTeste599',
+            username='usernameteste599',
+            password='Abcd2341',
+            email='email599@teste.com',
+            is_superuser=False,
+        )
+        self.usuario_diretor.groups.add(self.grupo_diretores)
         self.data_create_diretor = {
             "matricula": "0000000599",
             "cpf": "88888899995",
-            "escola": 1,
-            "grupos_add": ["Diretores"],
-            "objeto_usuario": {
-                "first_name": "PrimeiroNomeTeste599",
-                "last_name": "SobrenomeTeste599",
-                "email": "email599@teste.com",
-                "username": "usernameteste599",
-                "password": "Abcd2341"
-            }
+            "usuario": self.usuario_diretor.id
         }
 
         self.data_update_funcionario = {
             "matricula": "1000000200",
             "cpf": "18888889994",
-            "objeto_usuario": {
-                "first_name": "PrimeiroNomeTeste1200",
-                "last_name": "SobrenomeTeste1200",
-                "email": "email1200@teste.com",
-            }
         }
 
         self.data_update_professor = {
             "matricula": "0002000300",
             "cpf": "28888899994",
-            "objeto_usuario": {
-                "first_name": "PrimeiroNomeTeste2300",
-                "last_name": "SobrenomeTeste2300",
-                "email": "email2300@teste.com",
-            }
         }
 
-        self.escola = self.make_escola(**{'cnpj': '11111111111122'})
+        self.escola = self.make_escola(
+            **{
+                'cnpj': '11111111111122',
+                'nome': 'Teste teste teste',
+                'endereco': 'Mais teste',
+            }
+        )
 
         # Gera token de acesso para o usuário normal
         self.make_authenticate(self.usuario)

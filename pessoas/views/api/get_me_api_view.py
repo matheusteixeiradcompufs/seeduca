@@ -28,7 +28,6 @@ class GetMe(APIView):
             serializer = UsuarioSerializer(usuario)
         else:
             funcionario = get_object_or_404(Funcionario, usuario__username=username)
-            if funcionario:
-                serializer = FuncionarioSerializer(funcionario)
+            serializer = FuncionarioSerializer(funcionario)
 
         return Response(serializer.data, status=status.HTTP_200_OK)

@@ -33,7 +33,6 @@ class PessoasPermissionTest(PessoasTestBase):
             data_nascimento='1990-01-01',
             endereco='Teste',
             usuario_data=usuario_data,
-            escola_data=escola_data,
         )
 
         return super_setup

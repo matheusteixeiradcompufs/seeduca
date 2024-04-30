@@ -2,9 +2,9 @@ import os
 import jwt
 from io import BytesIO
 import qrcode
+from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
 from django.db import models
-from rest_framework.exceptions import ValidationError
 from appseeduca import settings
 from escolas.models import Turma
 from pessoas.models.aluno_model import Aluno
@@ -64,15 +64,14 @@ class Boletim(models.Model):
     )
 
     def __str__(self):
-        return f'Boletim de {str(self.aluno.usuario.first_name)} em {str(self.turma.ano)} da turma {self.turma}'
+        return f'Boletim de {str(self.aluno.usuario.first_name)} da turma {self.turma}'
 
     class Meta:
         verbose_name_plural = 'boletins'
         unique_together = ['aluno', 'turma']
 
     def delete(self, *args, **kwargs):
-        if self.qr_code:
-            os.remove(os.path.join(settings.MEDIA_ROOT, self.qr_code.name))
+        os.remove(os.path.join(settings.MEDIA_ROOT, self.qr_code.name))
         super(Boletim, self).delete(*args, **kwargs)
 
     def save(self, *args, **kwargs):
@@ -141,6 +140,7 @@ class Boletim(models.Model):
             buffer = BytesIO()
             qr_img.save(buffer, format='PNG')
             self.qr_code.save(f'qr_code_{self.aluno.id}_{self.turma.ano}.png', ContentFile(buffer.getvalue()), save=False)
+            self.save()
         else:
             if self.encerrar:
                 situacoes = self.boletim_situacoes.filter(finalizar=False)
@@ -159,5 +159,3 @@ class Boletim(models.Model):
             else:
                 self.status = 'M'
             return super(Boletim, self).save(*args, **kwargs)
-
-        super().save(*args, **kwargs)

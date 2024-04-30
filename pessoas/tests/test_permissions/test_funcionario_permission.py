@@ -9,6 +9,9 @@ class PessoasPermissionTest(PessoasTestBase):
     def logar_aluno(self):
         self.make_authenticate(self.aluno.usuario)
 
+    def logar_funcionario(self):
+        self.make_authenticate(self.funcionario.usuario)
+
     def logar_professor(self):
         self.make_authenticate(self.funcionario.usuario)
         self.funcionario.usuario.groups.add(self.grupo_professores)
@@ -29,20 +32,12 @@ class PessoasPermissionTest(PessoasTestBase):
             'email': 'testname@email.com',
             'password': '123456'
         }
-        escola_data = {
-            'cnpj': '00000000000002',
-            'nome': 'Escola Teste',
-            'endereco': 'Teste',
-            'num_salas': 10,
-            'descricao': 'Teste'
-        }
         self.aluno_teste = self.make_aluno(
             matricula='0000000003',
             cpf='00000000003',
             data_nascimento='1990-01-01',
             endereco='Teste',
             usuario_data=usuario_data,
-            escola_data=escola_data,
         )
 
         self.usuario_data2 = {
@@ -66,7 +61,6 @@ class PessoasPermissionTest(PessoasTestBase):
             data_nascimento='1990-01-01',
             endereco='Teste',
             usuario_data=self.usuario_data2,
-            escola_data=self.escola_data2,
         )
 
         return super(PessoasPermissionTest, self).setUp()
@@ -131,11 +125,11 @@ class PessoasPermissionTest(PessoasTestBase):
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-    def test_if_professores_cant_list_funcionarios(self):
+    def test_if_professores_can_list_funcionarios(self):
         self.logar_professor()
         url = reverse('pessoas:funcionario-api-list')
         response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN) # CORRIGIR ISSO
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_if_professores_cant_create_funcionarios(self):
         self.logar_professor()
@@ -246,7 +240,7 @@ class PessoasPermissionTest(PessoasTestBase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_if_coordenador_cant_create_coordenadores(self):
-        self.logar_coordenador()
+        self.logar_coordenador(),
         url = reverse('pessoas:funcionario-api-list')
         response = self.client.post(url, self.data_create_coordenador, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
@@ -434,3 +428,11 @@ class PessoasPermissionTest(PessoasTestBase):
         url = reverse('pessoas:funcionario-api-detail', kwargs={'pk': self.funcionario_teste.id})
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_if_funcionarios_with_no_groups_returns_queryset_none(self):
+        self.logar_funcionario()
+        grupo = self.make_grupo('Teste')
+        self.funcionario.usuario.groups.add(grupo)
+        url = reverse('pessoas:funcionario-api-list')
+        response = self.client.get(url)
+        self.assertEqual(response.data, [])

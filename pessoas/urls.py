@@ -2,7 +2,6 @@ from django.urls import include, path
 from rest_framework.routers import SimpleRouter
 
 from pessoas import views
-from pessoas.views import GetMe
 
 app_name = 'pessoas'
 
@@ -102,5 +101,5 @@ urlpatterns = [
     path('me/aluno/', views.GetMeAluno.as_view(), name='get_me_aluno'),
     path('reset-password/', views.ResetPasswordAPIView.as_view(), name='reset_password_request'),
     path('decode-token/', views.DecodeTokenAPIView.as_view(), name='decode_token'),
-    path('agendasdisciplinas/', views.AgendaDisciplinas.as_view(), name='agendas_disciplinas'),
+    path('agendasdisciplinas/', views.AgendaDisciplinas.as_view(), name='agenda_disciplinas'),
 ]
