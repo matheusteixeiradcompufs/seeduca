@@ -1,16 +1,17 @@
 from rest_framework import serializers
-
 from escolas.serializers.turma_sem_objetos_serializer import TurmaSemObjetosSerializer
 from pessoas.models import Boletim
 from pessoas.serializers.agenda_recado_serializer import AgendaRecadosSerializer
 from pessoas.serializers.frequencia_serializer import FrequenciaSerializer
 from pessoas.serializers.avaliacao_serializer import AvaliacaoSerializer
 from pessoas.serializers.media_serializer import MediaSerializer
-from escolas.serializers.turma_sem_boletim_serializer import TurmaSemBoletimSerializer
 from pessoas.serializers.situacao_serializer import SituacaoSerializer
 
 
 class BoletimSerializer(serializers.ModelSerializer):
+    """
+    Serializer para a serialização de objetos Boletim, incluindo objetos relacionados.
+    """
     class Meta:
         model = Boletim
         fields = [

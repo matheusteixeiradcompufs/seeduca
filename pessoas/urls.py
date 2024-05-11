@@ -1,12 +1,13 @@
 from django.urls import include, path
 from rest_framework.routers import SimpleRouter
-
 from pessoas import views
 
 app_name = 'pessoas'
 
+# Configuração do roteador para a API de pessoas
 pessoas_api_v1_router = SimpleRouter()
 
+# Registro de endpoints da API de pessoas
 pessoas_api_v1_router.register(
     'telefone/api/v1',
     views.TelefonePessoaViewSet,
@@ -95,11 +96,18 @@ pessoas_api_v1_router.register(
     basename='funcionario-api',
 )
 
+# Definição das URLs da aplicação de pessoas
 urlpatterns = [
+    # Inclusão das URLs da API de pessoas no padrão definido pelo roteador
     path('', include(pessoas_api_v1_router.urls)),
+    # Endpoint para obter informações do usuário autenticado
     path('me/', views.GetMe.as_view(), name='get_me'),
+    # Endpoint para obter informações do aluno autenticado
     path('me/aluno/', views.GetMeAluno.as_view(), name='get_me_aluno'),
+    # Endpoint para solicitar redefinição de senha
     path('reset-password/', views.ResetPasswordAPIView.as_view(), name='reset_password_request'),
+    # Endpoint para decodificar um token JWT
     path('decode-token/', views.DecodeTokenAPIView.as_view(), name='decode_token'),
+    # Endpoint para gerenciar as agendas de disciplinas
     path('agendasdisciplinas/', views.AgendaDisciplinas.as_view(), name='agenda_disciplinas'),
 ]

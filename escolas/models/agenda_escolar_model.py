@@ -2,25 +2,42 @@ import calendar
 from datetime import date
 
 from django.db import models
-
 from escolas.models.turma_model import Turma
 
 
 class AgendaEscolar(models.Model):
+    """
+    Representa a agenda escolar associada a uma turma.
+
+    Atributos:
+        turma (ForeignKey): A turma associada à agenda escolar.
+    """
     turma = models.OneToOneField(
         Turma,
         on_delete=models.CASCADE,
         related_name='turma_agenda',
+        verbose_name='Turma'
     )
 
     def __str__(self):
+        """
+        Retorna uma representação legível da agenda escolar.
+        """
         return 'Agenda do ' + str(self.turma)
 
     class Meta:
+        """
+        Metadados para a classe AgendaEscolar.
+        """
         verbose_name = 'agenda escolar'
         verbose_name_plural = 'agendas escolares'
 
     def save(self, *args, **kwargs):
+        """
+        Salva a agenda e cria dias úteis associados a ela se ainda não existirem.
+
+        Se não houver dias associados a esta agenda, cria dias úteis para o ano da turma.
+        """
         super().save(*args, **kwargs)
 
         # Verifica se já existem dias associados a esta agenda
@@ -36,6 +53,15 @@ class AgendaEscolar(models.Model):
 
     @staticmethod
     def get_dias_do_ano(ano):
+        """
+        Obtém uma lista de tuplas representando os dias úteis e não úteis de um ano.
+
+        Args:
+            ano (int): O ano para o qual os dias devem ser obtidos.
+
+        Returns:
+            list: Uma lista de tuplas contendo objetos date e um booleano indicando se o dia é útil.
+        """
         dias = []
         # Itera sobre todos os meses do ano
         for mes in range(1, 13):

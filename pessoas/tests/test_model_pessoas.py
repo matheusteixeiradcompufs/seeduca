@@ -448,7 +448,7 @@ class PessoasModelsTestCase(PessoasTestBase):
                 situacao.save()
         self.assertEqual(
             context.exception.message,
-            'Só é possível finalizar uma materia quando todas as notas do ano forem confirmadas'
+            'Só é possível finalizar uma matéria quando todas as notas do ano forem confirmadas'
         )
 
     def test_frequencia_model(self):

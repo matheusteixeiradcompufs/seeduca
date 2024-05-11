@@ -1,11 +1,13 @@
 from django.urls import path, include
 from rest_framework.routers import SimpleRouter
-
 from escolas import views
 
 app_name = 'escolas'
 
+# Criando um roteador para a API da escola
 escola_api_v1_router = SimpleRouter()
+
+# Registrando os endpoints da API da escola com seus respectivos viewsets
 escola_api_v1_router.register(
     'api/v1',
     views.EscolaViewSet,
@@ -77,6 +79,7 @@ escola_api_v1_router.register(
     basename='escola-sala-turma-agenda-dia-aviso-api',
 )
 
+# Definindo as URLs da aplicação
 urlpatterns = [
     path('', include(escola_api_v1_router.urls))
 ]

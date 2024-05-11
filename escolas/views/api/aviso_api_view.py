@@ -6,6 +6,11 @@ from pessoas.permissions import ProfessorCreateUpdatePermission
 
 
 class AvisoViewSet(viewsets.ModelViewSet):
+    """
+    Endpoint para visualização e manipulação de avisos de um dia de agenda escolar.
+
+    Este endpoint permite listar, criar, atualizar e excluir avisos.
+    """
     queryset = Aviso.objects.all()
     serializer_class = AvisoSerializer
     permission_classes = [

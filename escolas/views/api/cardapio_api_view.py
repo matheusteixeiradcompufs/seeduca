@@ -6,6 +6,11 @@ from pessoas.permissions import CoordenadorFullPermission
 
 
 class CardapioMerendaViewSet(viewsets.ModelViewSet):
+    """
+    Endpoint para visualização e manipulação dos cardápios de uma escola.
+
+    Este endpoint permite listar, criar, atualizar e excluir cardápios.
+    """
     queryset = CardapioMerenda.objects.all()
     serializer_class = CardapioMerendaSerializer
     permission_classes = [

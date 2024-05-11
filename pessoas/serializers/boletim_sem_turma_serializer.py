@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from pessoas.models import Boletim
 from pessoas.serializers.agenda_recado_serializer import AgendaRecadosSerializer
 from pessoas.serializers.aluno_sem_objetos_serializer import AlunoSemObjetosSerializer
@@ -10,6 +9,9 @@ from pessoas.serializers.situacao_serializer import SituacaoSerializer
 
 
 class BoletimSemTurmaSerializer(serializers.ModelSerializer):
+    """
+    Serializer para a serialização de objetos Boletim, excluindo a serialização da turma e incluindo objetos relacionados.
+    """
     class Meta:
         model = Boletim
         fields = [

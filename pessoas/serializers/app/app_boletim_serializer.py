@@ -10,6 +10,29 @@ from pessoas.serializers.situacao_serializer import SituacaoSerializer
 
 
 class AppBoletimSerializer(serializers.ModelSerializer):
+    """
+        Serializer para a model Boletim. Exclusivo para a API Restful do app mobile.
+
+        Este serializer é usado para serializar e desserializar instâncias da
+        model Boletim. Ele inclui campos relacionados ao aluno, à turma, ao
+        status do boletim, bem como informações sobre frequências, avaliações,
+        médias, situações e agenda de recados associadas ao boletim.
+
+        Fields:
+            id (int): ID do boletim.
+            aluno (int): ID do aluno associado ao boletim.
+            status (str): Status do boletim.
+            encerrar (bool): Indica se o boletim está encerrado.
+            qr_code (str): URL do código QR associado ao boletim.
+            turma (int): ID da turma associada ao boletim.
+            objeto_turma (dict): Dados da turma associada ao boletim.
+            objeto_frequencia (dict): Dados da frequência associada ao boletim.
+            objetos_avaliacoes (list): Lista de avaliações associadas ao boletim.
+            objetos_medias (list): Lista de médias associadas ao boletim.
+            objetos_situacoes (list): Lista de situações associadas ao boletim.
+            objeto_agenda (dict): Dados da agenda de recados associada ao boletim.
+        """
+
     class Meta:
         model = Boletim
         fields = [

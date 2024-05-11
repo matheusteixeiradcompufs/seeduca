@@ -10,6 +10,34 @@ from pessoas.serializers.usuario_serializer import UsuarioSerializer
 
 
 class AppAlunoSerializer(serializers.ModelSerializer):
+    """
+        Serializer para a model Aluno. Exclusivo para a API Restful do app mobile.
+
+        Este serializer é usado para serializar e desserializar instâncias
+        da model Aluno. Ele inclui campos relacionados a dados pessoais
+        do aluno, bem como informações sobre o usuário associado, telefones,
+        e-mails, responsáveis, boletins e transportes do aluno.
+
+        Fields:
+            id (int): ID do aluno.
+            matricula (str): Número de matrícula do aluno.
+            cpf (str): CPF do aluno.
+            data_nascimento (date): Data de nascimento do aluno.
+            usuario (dict): Dados do usuário associado ao aluno.
+            endereco (str): Endereço do aluno.
+            criado_em (datetime): Data e hora de criação do registro.
+            atualizado_em (datetime): Data e hora da última atualização do registro.
+            eh_pcd (bool): Indica se o aluno é uma pessoa com deficiência.
+            descricao_pcd (str): Descrição da deficiência, se aplicável.
+            retrato (str): URL da imagem do aluno.
+            objeto_usuario (dict): Dados do usuário associado ao aluno.
+            objetos_telefones (list): Lista de telefones associados ao aluno.
+            objetos_emails (list): Lista de e-mails associados ao aluno.
+            objetos_responsaveis (list): Lista de responsáveis pelo aluno.
+            objetos_boletins (list): Lista de boletins do aluno.
+            objetos_transportes (list): Lista de transportes utilizados pelo aluno.
+        """
+
     class Meta:
         model = Aluno
         fields = [

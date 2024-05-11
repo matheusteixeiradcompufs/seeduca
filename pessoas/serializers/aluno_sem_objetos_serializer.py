@@ -1,10 +1,12 @@
 from rest_framework import serializers
-
 from pessoas.models import Aluno
 from pessoas.serializers.usuario_serializer import UsuarioSerializer
 
 
 class AlunoSemObjetosSerializer(serializers.ModelSerializer):
+    """
+    Serializer para a serialização de objetos Aluno, excluindo a serialização de objetos relacionados.
+    """
     class Meta:
         model = Aluno
         fields = [
